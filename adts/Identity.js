@@ -1,5 +1,5 @@
 const crocks = require('crocks')
-// ap, concat, equals, sequence, traverse, value
+// sequence, traverse
 
 const { Identity } = crocks
 const dbl = n => n * 2
@@ -83,3 +83,32 @@ console.log(wrappedDouble.inspect()) // Identity Function
 
 const wrappedResult = wrappedDouble.ap(id)
 console.log(wrappedResult.inspect()) // Identity 6
+
+/**
+ * The `concat` method requires that the Identities involved contain semigroups
+ * and those semigroups need to be of the same type
+ * If not using semigroups you get this error:
+ * Identity.concat: Both containers must contain Semigroups of the same type
+ * For now, we should be able to get away with arrays...
+ *
+ */
+const arrId1 = Identity.of([1, 2, 3])
+const arrId2 = Identity.of([4, 5, 6])
+const arrId = arrId1.concat(arrId2)
+
+// So, concat unwraps values, concatenates them and returns the result wrapped in Identity
+console.log(arrId.inspect()) // Identity [ 1, 2, 3, 4, 5, 6 ]
+
+/**
+ * `equals` compares contained values between two Identity instances
+ */
+
+const id2 = Identity.of(3)
+const areEqual = id.equals(id2)
+console.log(areEqual) // true
+
+const obj = { name: 'test' }
+const objId = Identity.of(obj)
+const objId2 = Identity.of(obj)
+const refEql = objId.equals(objId2)
+console.log('reference equality', refEql)
