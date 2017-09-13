@@ -63,3 +63,23 @@ console.log(doubledIdChain.inspect()) // Identity 6
 // const justFn = val => Maybe.Just(val * 2)
 // const doubledIdChainJust = id.chain(justFn)
 // console.log(doubledIdChainJust.inspect())
+
+// The `value` method just unwraps and returns the contained value
+console.log('value of id:', id.value())
+
+/**
+ * Let's look at the `ap` method...
+ * We'll start with a function and wrap that in an Identity
+ */
+
+const wrappedDouble = Identity.of(dbl)
+console.log(wrappedDouble.inspect()) // Identity Function
+
+/**
+ * We can apply a function wrapped in an Identity to a
+ * value that is also wrapped in an Identity
+ * and we get an Identity back that contains the result
+ */
+
+const wrappedResult = wrappedDouble.ap(id)
+console.log(wrappedResult.inspect()) // Identity 6
