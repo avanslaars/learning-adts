@@ -17,5 +17,8 @@
     "lint": "standard",
     "lint-fix": "standard --fix"
   },
-  "pre-commit": ["lint"]
+  "quokka": {
+    "babel": false
+  },
+  "pre-commit": ["lint-fix", "lint"]
 }
