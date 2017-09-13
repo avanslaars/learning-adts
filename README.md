@@ -12,8 +12,50 @@ These examples all rely on ADTs found in the [crocks library](https://github.com
 
 #### Identity
 
-[samples source](./adts/Identity.js)
-
 [Detailed notes](./adts/Identity.md)
 
+[samples source](./adts/Identity.js)
+
 run: `node adts/Identity.js`
+
+#### Maybe
+
+[Detailed notes](./adts/Maybe.md)
+
+[creating Maybes source](./adts/Maybe.js)
+
+run creating: `node adts/Maybe.js`
+
+[Maybe methods](./adts/MaybeMethods.js)
+
+run methods: `node adts/MaybeMethods.js`
+
+### Combinators
+
+These examples rely on the combinators made available by [crocks](https://github.com/evilsoft/crocks)
+
+#### applyTo
+
+[samples source](./combinators/applyTo.js)
+
+run: `node combinators/applyTo.js`
+
+#### composeB
+
+[samples source](./combinators/composeB.js)
+
+run: `node combinators/composeB.js`
+
+#### constant
+
+[samples source](./combinators/constant.js)
+
+run: `node combinators/constant.js`
+
+#### flip
+
+#### identity
+
+#### reverseApply
+
+#### substitution

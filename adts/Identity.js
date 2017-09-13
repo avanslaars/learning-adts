@@ -3,9 +3,14 @@ const crocks = require('crocks')
 
 const { Identity } = crocks
 const dbl = n => n * 2
+const inc = n => n + 1
 
 // of is a "constructor" method for most of the ADTs in crocks
-const id = Identity.of(3)
+// const id = Identity.of(3)
+
+// Using `new Identity` also works
+const id = new Identity(3)
+
 // inspect is a method that gives us nice output of a type instance
 console.log('Result of Identity.of(3)', id.inspect()) // Identity 3
 
@@ -16,6 +21,14 @@ console.log('Result of Identity.of(3)', id.inspect()) // Identity 3
 
 const doubled = id.map(dbl)
 console.log(doubled.inspect()) // Identity 6
+
+/**
+ * Since most methods on these ADTs will return a new instance of the same type
+ * They can be dot-chained together...
+ */
+
+const doubleInc = id.map(dbl).map(inc)
+console.log(doubleInc.inspect()) // Identity 7
 
 /**
  * So, what happens in the map if the Identity is a null or undefined?
