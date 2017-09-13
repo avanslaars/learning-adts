@@ -39,7 +39,7 @@ console.log(incDblMapped2.inspect()) // Nothing
 
 /**
  * The `safetyFirst` function is a result of using Boolean as the predicate for
- * the `safe` function, so it takes a value and returns a Maybe 
+ * the `safe` function, so it takes a value and returns a Maybe
  * (Nothing for a falsy value or Just <value>)
  * Let's see what happens when we `map` over our Just with this function
  */
@@ -54,10 +54,10 @@ console.log(reallySafe.inspect()) // Just Just 5
  * in a second `map` - we'd have to account for getting a Maybe as the argument for that function
  * and then if we still wanted to transform the nested value, we'd have to access it within the nested Maybe
  * using `map` or some other method that would unwrap the value...
- * 
+ *
  * So, this is where we should reach for `chain` - sometimes referred to as `flatMap` in other libraries,
  * `chain` will "flatten" our nested Maybe structure, leaving us with our value in a single Just
- * 
+ *
  * I'd like to note that this example was mostly about showing what happens when you `map` where you should `chain`
  * The code below on its own is pointless, but demonstrates the difference between `map` and `chain`
  */
@@ -95,12 +95,12 @@ const nothingFromEither = noValue.either(
 console.log(nothingFromEither) // "No Value to Transform"
 
 /**
- * The Maybe keeps our operations safe by skipping operations that might otherwise 
+ * The Maybe keeps our operations safe by skipping operations that might otherwise
  * throw an exception with a null or undefined value
  * That's great, but sometimes you may want to run some operations anyway, just
  * using a default value if you end up with a Nothing
  * alt allows you to define a default Maybe that is returned in the event of a Nothing
- * 
+ *
  */
 
 const altWithValue = withValue.alt(Maybe.Just(10))
