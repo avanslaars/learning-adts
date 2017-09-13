@@ -20,5 +20,5 @@
   "quokka": {
     "babel": false
   },
-  "pre-commit": ["lint-fix", "lint"]
+  "pre-commit": ["lint"]
 }
