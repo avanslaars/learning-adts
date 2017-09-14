@@ -2,6 +2,14 @@
 
 Functional programming in JS has opened my mind to a new way of thinking about and solving problems. I've only just scratched the surface of what can be done and realize that I'm missing out on a great deal of power, flexibility and expressivity by not getting better acquainted with some common algebraic data types (or ADTs).
 
+## Project setup
+
+I'm using `yarn` for this, so my suggested setup process is to clone this repo and run: `yarn` to install dependencies.
+
+Many examples are created and executed in the context of unit tests. So you can see the output of the `.spec.js` files by running `yarn test`. 
+
+This project's tests are using Mocha with Chai's expect assertions. There is also a `wallaby.js` that allows wallaby users to take full advantage of that editor integration.
+
 To learn more about my plan (or lack thereof) and goals, I've created an [about file that you can read here](./about.md).
 
 ## Examples/Notes
@@ -14,7 +22,7 @@ These examples all rely on ADTs found in the [crocks library](https://github.com
 
 [Detailed notes](./adts/Identity.md)
 
-[samples source](./adts/Identity.js)
+[samples source](./adts/Identity.spec.js)
 
 run: `node adts/Identity.js`
 
