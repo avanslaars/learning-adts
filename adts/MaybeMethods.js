@@ -1,6 +1,6 @@
 const crocks = require('crocks')
 
-// ap, coalesce, concat, equals, sequence, traverse
+// TODO: Define examples for: ap, concat, equals, sequence, traverse
 
 const { Maybe, safe, prop } = crocks
 
@@ -138,3 +138,27 @@ const cappedName2 = theName2
   .map(str => str.toUpperCase())
 
 console.log(cappedName2.inspect()) // Just "CHARLOTTE"
+
+/**
+ * coalesce is another method that will allow us to recover when we end up with a Nothing
+ * This time, instead of just defining a default Maybe value for the Nothing case,
+ * we define a different function for each case. The "left" function executes in the
+ * case of a Nothing and the result is passed on as a Just.
+ * The "right" function runs for the Just case. This can be used to transform the value
+ * or, to pass it through untouched, just use the identity function (`x => x`).
+ * This is a good place to replace a map if you may end up with a Nothing and want to
+ * continue on. You can project a new value on your Just or return a default and
+ * carry on dot-chaining values.
+ */
+
+const coalesced1 = theName1
+  .coalesce(() => 'DEFAULT', value => value.toUpperCase())
+  .map(x => `Mapped: ${x}`)
+
+console.log(coalesced1.inspect()) // Just "Mapped: DEFAULT"
+
+const coalesced2 = theName2
+  .coalesce(() => 'DEFAULT', value => value.toUpperCase())
+  .map(x => `Mapped: ${x}`)
+
+console.log(coalesced2.inspect()) // Just "Mapped: CHARLOTTE"
