@@ -20,6 +20,8 @@ To learn more about my plan (or lack thereof) and goals, I've created an [about 
 
 These examples all rely on ADTs found in the [crocks library](https://github.com/evilsoft/crocks).
 
+The order of the types listed here is subject to change. It is intended to be in the order I would teach these in. That may change with a new type being inserted between two previously listed types once I learn it better... that just means I would teach this differently based on new information. As this is an ongoing learning exercise, this order is likely to change periodically as I learn more.
+
 #### Identity
 
 [Detailed notes](./src/adts/Identity.md)
@@ -31,6 +33,14 @@ These examples all rely on ADTs found in the [crocks library](https://github.com
 [Detailed notes](./src/adts/Maybe.md)
 
 [samples source](./src/adts/Maybe.spec.js)
+
+#### Either
+
+#### Result
+
+#### List
+
+#### Arrow
 
 ### Combinators
 
