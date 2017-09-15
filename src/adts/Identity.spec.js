@@ -186,8 +186,9 @@ describe('Identity equals', () => {
   it('compares wrapped values', () => {
     const id1 = Identity.of(3)
     const id2 = Identity.of(3)
-    expect(id1).not.to.equal(id2) // Different obj references are not equal
-    // eslint-disable-next-line no-unused-expressions
-    expect(id1.equals(id2)).to.be.true // We expect wrapped values to be equal
+    // Different obj references are not equal even with equal contained values
+    expect(id1).not.to.equal(id2)
+    // We expect wrapped values to be equal
+    expect(id1.equals(id2)).to.eql(true)
   })
 })
