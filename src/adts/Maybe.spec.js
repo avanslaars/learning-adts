@@ -21,7 +21,7 @@ describe('Maybe Construction', () => {
     expect(result.inspect()).to.eql('Just 3')
   })
 
-  // Using `new Identity` also works
+  // Using `new Maybe` also works
   it('Creates a Just with new Maybe', () => {
     const result = new Maybe(3)
     expect(result.inspect()).to.eql('Just 3')
