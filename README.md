@@ -22,23 +22,15 @@ These examples all rely on ADTs found in the [crocks library](https://github.com
 
 #### Identity
 
-[Detailed notes](./adts/Identity.md)
+[Detailed notes](./src/adts/Identity.md)
 
-[samples source](./adts/Identity.spec.js)
-
-run: `node adts/Identity.js`
+[samples source](./src/adts/Identity.spec.js)
 
 #### Maybe
 
-[Detailed notes](./adts/Maybe.md)
+[Detailed notes](./src/adts/Maybe.md)
 
-[creating Maybes source](./adts/Maybe.js)
-
-run creating: `node adts/Maybe.js`
-
-[Maybe methods](./adts/MaybeMethods.js)
-
-run methods: `node adts/MaybeMethods.js`
+[samples source](./src/adts/Maybe.spec.js)
 
 ### Combinators
 
@@ -46,21 +38,15 @@ These examples rely on the combinators made available by [crocks](https://github
 
 #### applyTo
 
-[samples source](./combinators/applyTo.js)
-
-run: `node combinators/applyTo.js`
+[samples source](./src/combinators/applyTo.spec.js)
 
 #### composeB
 
-[samples source](./combinators/composeB.js)
-
-run: `node combinators/composeB.js`
+[samples source](./src/combinators/composeB.spec.js)
 
 #### constant
 
-[samples source](./combinators/constant.js)
-
-run: `node combinators/constant.js`
+[samples source](./src/combinators/constant.spec.js)
 
 #### flip
 
