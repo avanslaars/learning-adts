@@ -1,7 +1,7 @@
 /* eslint no-unused-expressions:0 */
 
 'use strict'
-// ap
+
 const expect = require('chai').expect
 
 const crocks = require('crocks')
@@ -273,5 +273,23 @@ describe('Compare value equality with Pair.equals', () => {
 
     const result3 = pair3.equals(pair4) // not equal
     expect(result3).not.to.be.true
+  })
+})
+
+describe('Apply functions with ap', () => {
+  it('applies a function in a Pair to a value in a Pair', () => {
+    /**
+     * For the Pair type, `ap` will take a Pair with a function in
+     * its second value. It will apply that function to the second of
+     * another Pair. In order to return a new Pair, the first
+     * of each Pair must be a Semigroup of the same type so they
+     * can be concatenated together to make up the first value for
+     * the new Pair
+     */
+    const pairFn = new Pair([3], dbl)
+
+    const pairVal = new Pair([1], 2)
+    const result = pairFn.ap(pairVal)
+    expect(result.inspect()).to.eql('Pair( [ 3, 1 ], 4 )')
   })
 })
