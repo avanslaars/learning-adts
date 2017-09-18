@@ -205,7 +205,11 @@ describe('Resolved Async values can be transformed with map', () => {
       .fork(() => expect.fail(), res => expect(res).to.eq('BOB'))
   })
 
-  it('Multiple maps can be composed', () => {
+  /**
+   * We can cut multiple calls to `map` down by composing the
+   * individual transform functions and mapping over the resulting function
+   */
+  it('Multiple maps can be consolidated with composition', () => {
     const task = Async.Resolved({ name: 'Bob' })
     task
       .map(R.compose(R.toUpper, R.prop('name')))
@@ -221,5 +225,23 @@ describe('Resolved Async values can be transformed with map', () => {
       },
       () => expect.fail()
     )
+  })
+})
+
+describe('Flatten nested Asyncs with Async.chain', () => {
+  it('Does what it says in the describe ;)', () => {
+    /**
+     * We often need to get data asynchronously and then use part of
+     * that data to get some other data asynchronously
+     * If we did this in a `map`, we'd end up with nested Asyncs
+     * So we use `chain` to flatten the structure
+     */
+    const outerTask = Async.Resolved('data needed for another call')
+    outerTask
+      .chain(res => Async.Resolved('data based on prev response'))
+      .fork(
+        () => expect.fail(),
+        res => expect(res).to.eq('data based on prev response')
+      )
   })
 })
