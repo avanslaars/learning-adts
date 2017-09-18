@@ -211,4 +211,15 @@ describe('Resolved Async values can be transformed with map', () => {
       .map(R.compose(R.toUpper, R.prop('name')))
       .fork(() => expect.fail(), res => expect(res).to.eq('BOB'))
   })
+
+  it('Ignores transformations on Rejected', () => {
+    const task = Async.Rejected(new Error('Oops!'))
+    task.map(R.prop('name')).map(R.toUpper).fork(
+      err => {
+        expect(err).to.be.instanceof(Error)
+        expect(err.message).to.eq('Oops!')
+      },
+      () => expect.fail()
+    )
+  })
 })
