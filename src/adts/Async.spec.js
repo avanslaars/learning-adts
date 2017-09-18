@@ -4,6 +4,7 @@
 const expect = require('chai').expect
 
 const crocks = require('crocks')
+const R = require('ramda')
 const { Async } = crocks
 
 describe('Async Quick start', () => {
@@ -192,5 +193,22 @@ describe('Asyncs can recover from Rejections with Async.alt', () => {
     rejTask
       .alt(Async.Resolved('🎉')) // Not executed for a Resolved
       .fork(() => expect.fail(), res => expect(res).to.eq('👍🏻'))
+  })
+})
+
+describe('Resolved Async values can be transformed with map', () => {
+  it('Performs transformations on Resolved', () => {
+    const task = Async.Resolved({ name: 'Bob' })
+    task
+      .map(R.prop('name'))
+      .map(R.toUpper)
+      .fork(() => expect.fail(), res => expect(res).to.eq('BOB'))
+  })
+
+  it('Multiple maps can be composed', () => {
+    const task = Async.Resolved({ name: 'Bob' })
+    task
+      .map(R.compose(R.toUpper, R.prop('name')))
+      .fork(() => expect.fail(), res => expect(res).to.eq('BOB'))
   })
 })
