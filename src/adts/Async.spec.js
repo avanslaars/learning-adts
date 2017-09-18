@@ -1,6 +1,6 @@
 /* eslint no-unused-expressions:0 */
 'use strict'
-// TODO: examples for: ap, bimap, chain, coalesce, map, swap
+// TODO: examples for: ap, bimap, swap
 const expect = require('chai').expect
 
 const crocks = require('crocks')
@@ -244,4 +244,51 @@ describe('Flatten nested Asyncs with Async.chain', () => {
         res => expect(res).to.eq('data based on prev response')
       )
   })
+})
+
+describe('Recover from errors with Async.coalesce', () => {
+  it('Allows a rejected Async to be converted to a Resolved', () => {
+    const task = Async.Rejected(new Error('Oops!'))
+    task
+      .coalesce(err => `Recovered from ${err.message}`, () => expect.fail())
+      .fork(
+        () => expect.fail(),
+        res => expect(res).to.eq('Recovered from Oops!')
+      )
+  })
+
+  it('Just runs the transformation when Resolved', () => {
+    const task = Async.Resolved('success')
+    task
+      .coalesce(() => expect.fail(), res => res.toUpperCase())
+      .fork(() => expect.fail(), res => expect(res).to.eq('SUCCESS'))
+  })
+})
+
+describe('Switch Rejected and Resolved with swap', () => {
+  it('Moves a Rejected to a Resolved', () => {
+    const task = Async.Rejected(new Error('Oops!'))
+    task
+      .swap(err => err.message, () => expect.fail())
+      .fork(() => expect.fail(), res => expect(res).to.eq('Oops!'))
+  })
+
+  it('Moves a Resolved to a Rejected', () => {
+    const task = Async.Resolved('Faux Success')
+    task.swap(() => expect.fail(), res => new Error(res)).fork(
+      err => {
+        expect(err).to.be.instanceof(Error)
+        expect(err.message).to.eq('Faux Success')
+      },
+      () => expect.fail()
+    )
+  })
+  /**
+   * This doesn't make a ton of sense if you can't know ahead of time
+   * if you're going to get a success that needs to become a Rejected...
+   * So how do we do this in a useful way?
+   */
+  // TODO: Work out a reasonable way to use swap conditionally
+  // Why would I use this instead of chaining with a ternary or
+  // Just going from failure to success with `alt` or `coalesce`
 })
