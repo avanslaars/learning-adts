@@ -4,8 +4,9 @@
 
 const expect = require('chai').expect
 
-const crocks = require('crocks')
-const { Pair } = crocks
+const Pair = require('crocks/Pair')
+const identity = require('crocks/combinators/identity')
+const fanout = require('crocks/helpers/fanout')
 const { inc, dbl } = require('../utils')
 
 describe('Pair construction', () => {
@@ -24,7 +25,6 @@ describe('Pair construction', () => {
      * So you get a Pair( b, c )...
      * Let's look at a simple example
      */
-    const { fanout, identity } = crocks
     const createNumberPair = fanout(n => n * 2, identity)
     const result = createNumberPair(2)
     expect(result.inspect()).to.eql('Pair( 4, 2 )')
@@ -40,7 +40,7 @@ describe('Mapping and Chaining with a Pair', () => {
 
   it('Will nest Pairs if a mapped function returns a Pair', () => {
     const pair = new Pair(1, 2)
-    const { fanout, identity } = crocks
+    // const { fanout, identity } = crocks
     const createNumberPair = fanout(n => n * 2, identity)
     const result = pair.map(createNumberPair)
     expect(result.inspect()).to.eql('Pair( 1, Pair( 4, 2 ) )')
@@ -55,7 +55,7 @@ describe('Mapping and Chaining with a Pair', () => {
    */
   it(`Can't just flatten nested pairs using chain`, () => {
     const pair = new Pair(1, 2)
-    const { fanout, identity } = crocks
+    // const { fanout, identity } = crocks
     const createNumberPair = fanout(n => n * 2, identity)
     expect(() => pair.chain(createNumberPair)).to.throw(
       'Pair.chain: Semigroups of the same type required for first values'
@@ -72,8 +72,6 @@ describe('Mapping and Chaining with a Pair', () => {
    * that its first value is also an array
    */
   it('Requires the first to be a Semigroup to use chain', () => {
-    const { fanout, identity } = crocks
-
     // Updated to hold an array in first
     const pair = new Pair([1, 2], 3)
     // returns a single element array as its first value
@@ -93,7 +91,7 @@ describe('Mapping and Chaining with a Pair', () => {
 })
 
 describe('Swapping values in a Pair', () => {
-  const { identity } = crocks
+  const identity = require('crocks/combinators/identity')
   /**
    * Since some operations favor the second value over the first
    * We may have times where swapping values inside a Pair will
@@ -132,7 +130,9 @@ describe('Transforming both values in a Pair with bimap', () => {
 })
 
 describe('Transform individual values with first and second utils', () => {
-  const { first, second } = crocks
+  // const { first, second } = crocks
+  const first = require('crocks/pointfree/first')
+  const second = require('crocks/pointfree/second')
   /**
    * Using `first` and `second` with a Pair let's us change one value
    * or the other and continue passing the unchanged value through our

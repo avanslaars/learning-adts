@@ -1,9 +1,8 @@
 'use strict'
 
 const expect = require('chai').expect
-const crocks = require('crocks')
 
-const { applyTo } = crocks
+const applyTo = require('crocks/combinators/applyTo')
 
 const { dbl } = require('../utils')
 

@@ -3,9 +3,8 @@
 // TODO: examples for: ap, bimap, swap
 const expect = require('chai').expect
 
-const crocks = require('crocks')
+const Async = require('crocks/async')
 const R = require('ramda')
-const { Async } = crocks
 
 describe('Async Quick start', () => {
   /**

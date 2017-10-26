@@ -2,8 +2,7 @@
 
 const expect = require('chai').expect
 
-const crocks = require('crocks')
-const { Identity } = crocks
+const Identity = require('crocks/identity')
 const { dbl, inc } = require('../utils')
 
 describe('Identity Construction', () => {
@@ -99,7 +98,7 @@ describe('Chaining Identity', () => {
  * So if we want to chain, we must return the same type
  */
   it(`doesn't take kindly to mixing types`, () => {
-    const { Maybe } = crocks
+    const Maybe = require('crocks/Maybe')
     const id = Identity.of(3)
     const maybeVal = val => Maybe.of(val)
     expect(() => id.chain(maybeVal)).to.throw(

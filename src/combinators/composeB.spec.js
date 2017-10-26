@@ -1,9 +1,8 @@
 'use strict'
 
 const expect = require('chai').expect
-const crocks = require('crocks')
 
-const { composeB } = crocks
+const composeB = require('crocks/combinators/composeB')
 const { inc, dbl, sqr } = require('../utils')
 
 /**

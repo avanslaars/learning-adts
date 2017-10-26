@@ -3,8 +3,7 @@
 // TODO: examples for: ap, bimap, swap
 const expect = require('chai').expect
 
-const crocks = require('crocks')
-const { Pred } = crocks
+const Pred = require('crocks/pred')
 
 describe('The Pred Mondad', () => {
   /**

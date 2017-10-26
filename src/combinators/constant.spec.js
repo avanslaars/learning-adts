@@ -1,9 +1,8 @@
 'use strict'
 
 const expect = require('chai').expect
-const crocks = require('crocks')
 
-const { constant } = crocks
+const constant = require('crocks/combinators/constant')
 
 /**
  * constant takes a value and returns a function that

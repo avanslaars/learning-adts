@@ -2,8 +2,7 @@
 
 const expect = require('chai').expect
 
-const crocks = require('crocks')
-const { Maybe } = crocks
+const Maybe = require('crocks/maybe')
 const { dbl, inc } = require('../utils')
 
 /**
@@ -108,7 +107,8 @@ describe('Maybe from a custom function', () => {
    * and returns a Just or Nothing based on evaluating that predicate against the value
    */
 describe('Maybe using the `safe` utility function', () => {
-  const { safe } = crocks
+  // const { safe } = crocks
+  const safe = require('crocks/Maybe/safe')
 
   it('Returns a Nothing when the predicate evaluates to false', () => {
     const theMaybe = safe(Boolean, undefined)
@@ -181,7 +181,9 @@ describe('Maybe Methods', () => {
        * The `prop` function attempts to pull the value from a key on an object
        * If that key is present, you get a Just of the value, otherwise, Nothing
        */
-    const { prop, safe } = crocks
+
+    const safe = require('crocks/Maybe/safe')
+    const prop = require('crocks/Maybe/prop')
     // Accept a value, return a maybe based on the predicate
     const maybeInRange = safe(val => val >= 25 && val <= 35)
 

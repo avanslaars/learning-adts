@@ -2,8 +2,8 @@
 // TODO: examples for: ap, concat, either, equals, sequence, swap, traverse
 const expect = require('chai').expect
 
-const crocks = require('crocks')
-const { Either, identity } = crocks
+const Either = require('crocks/either')
+const identity = require('crocks/combinators/identity')
 const { dbl, inc } = require('../utils')
 
 /**
