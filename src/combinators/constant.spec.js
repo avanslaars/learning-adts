@@ -10,9 +10,11 @@ const constant = require('crocks/combinators/constant')
  * initial value. This is called `always` in Ramda
  */
 describe('constant combinator', () => {
-  const alwaysThree = constant(3)
-  expect(alwaysThree).to.be.instanceof(Function)
+  it('Always returns the same value', () => {
+    const alwaysThree = constant(3)
+    expect(alwaysThree).to.be.instanceof(Function)
 
-  const result = alwaysThree('this argument will be ignored')
-  expect(result).to.eql(3)
+    const result = alwaysThree('this argument will be ignored')
+    expect(result).to.eql(3)
+  })
 })

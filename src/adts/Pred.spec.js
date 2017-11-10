@@ -14,7 +14,9 @@ describe('The Pred Mondad', () => {
    */
   it('Is like a wrapped predicate function', () => {
     const pred = new Pred(x => x > 10)
-    const result = pred.runWith(15)
-    expect(result).to.be.true
+    const result1 = pred.runWith(15)
+    const result2 = pred.runWith(5)
+    expect(result1).to.be.true
+    expect(result2).to.be.false
   })
 })
