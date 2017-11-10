@@ -11,9 +11,9 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "husky": "^0.14.3",
     "mocha": "^3.5.3",
     "mochawesome": "^2.3.1",
-    "pre-commit": "^1.2.2",
     "standard": "^10.0.3"
   },
   "scripts": {
@@ -21,7 +21,8 @@
     "fix": "standard --fix",
     "test": "mocha **/*.spec.js --watch",
     "test:once": "mocha **/*.spec.js",
-    "test:ma": "mocha **/*.spec.js --watch --reporter mochawesome"
+    "test:ma": "mocha **/*.spec.js --watch --reporter mochawesome",
+    "precommit": "npm run lint && npm run test:once"
   },
   "quokka": {
     "babel": false
@@ -29,11 +30,8 @@
   "standard": {
     "globals": [
       "describe",
+      "context",
       "it"
     ]
-  },
-  "pre-commit": [
-    "lint",
-    "test:once"
-  ]
+  }
 }
