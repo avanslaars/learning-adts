@@ -121,10 +121,7 @@ describe('Swapping values in a Pair', () => {
 describe('Transforming both values in a Pair with bimap', () => {
   it('Takes two transformation functions', () => {
     const pair = new Pair(1, 2)
-    const result = pair.bimap(
-      x => x + 1, // increment the first value
-      x => x * 3 // multiply 2nd value by 3
-    )
+    const result = pair.bimap(x => x + 1, x => x * 3)
     expect(result.inspect()).to.eql('Pair( 2, 6 )')
   })
 })

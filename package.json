@@ -6,7 +6,7 @@
   "author": "Andrew L. Van Slaars <avanslaars@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "crocks": "^0.7.1",
+    "crocks": "^0.8.0",
     "ramda": "^0.24.1"
   },
   "devDependencies": {

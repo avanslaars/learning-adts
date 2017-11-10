@@ -110,7 +110,7 @@ describe('Chaining Identity', () => {
 describe('Identity value method', () => {
   it('Unwraps the Identity and returns the contained value', () => {
     const id = Identity.of(3)
-    expect(id.value()).to.eql(3)
+    expect(id.valueOf()).to.eql(3)
   })
 })
 
@@ -169,7 +169,7 @@ describe('Identity concat method', () => {
     const idArr2 = Identity.of([4, 5, 6])
     const result = idArr1.concat(idArr2)
     expect(result.inspect()).to.eql('Identity [ 1, 2, 3, 4, 5, 6 ]')
-    expect(result.value()).to.eql([1, 2, 3, 4, 5, 6])
+    expect(result.valueOf()).to.eql([1, 2, 3, 4, 5, 6])
   })
 
   it(`will throw if one of the containers is not a semigroup`, () => {
