@@ -1,3 +1,4 @@
+/* eslint no-unused-expressions:0 */
 const expect = require('chai').expect
 const sinon = require('sinon')
 const {inc, dbl, sqr} = require('../utils')
@@ -390,6 +391,76 @@ describe('Crocks helpers', () => {
       onceFn()
       onceFn()
       sinon.assert.calledOnce(fn)
+    })
+  })
+
+  context('prop', () => {
+    const prop = require('crocks/Maybe/prop')
+    it('Returns a Just for an existing property', () => {
+      const input = { a: 'A', b: 'B' }
+      const result = prop('a', input)
+      expect(result.inspect()).to.equal('Just "A"')
+    })
+
+    it('Returns a Nothing for a non-existent key', () => {
+      const input = { a: 'A', b: 'B' }
+      const result = prop('c', input)
+      expect(result.inspect()).to.equal('Nothing')
+    })
+  })
+
+  context('propPath', () => {
+    const propPath = require('crocks/Maybe/propPath')
+    it('Returns a Just for an existing property at a path', () => {
+      const input = { a: { b: { c: 'C' } } }
+      const result = propPath(['a', 'b', 'c'], input)
+      expect(result.inspect()).to.equal('Just "C"')
+    })
+
+    it('Returns a Nothing for a non-existent key at a path', () => {
+      const input = { a: { b: { c: 'C' } } }
+      const result = propPath(['a', 'b', 'd'], input)
+      expect(result.inspect()).to.equal('Nothing')
+    })
+
+    it('works with indexes too', () => {
+      const input = { a: [ { b: ['C'] } ] }
+      const result = propPath(['a', 0, 'b', 0], input)
+      expect(result.inspect()).to.equal('Just "C"')
+    })
+  })
+
+  context('safeLift', () => {
+    const safeLift = require('crocks/Maybe/safeLift')
+    const isNumber = require('crocks/predicates/isNumber')
+    it('Lifts and operation into a Maybe context', () => {
+      /**
+       * Take an unsafe function and make it safe by lifting it into
+       * a Maybe context. If the value satisfies your predicate, the value
+       * will be passed to the function and you'll get the result back in
+       * a Just. If the predicate evaluates to false, you will get back a
+       * Nothing. This let's you avoid error conditions by accounting for
+       * unexpected inputs like `null` or `undefined`
+       */
+      const safeInc = safeLift(isNumber, inc)
+      const result = safeInc(1)
+      const result2 = safeInc(null)
+      const result3 = safeInc(undefined)
+      const result4 = safeInc('x')
+      /**
+       * Compare with undefined & string passed to original function:
+       * `undefined` will result in NaN
+       * Passing a string will coerce the 1 to string and concat the values
+       */
+      const result5 = inc(undefined) // NaN
+      const result6 = inc('x') // "x1"
+
+      expect(result.option(3)).to.equal(2)
+      expect(result2.option(3)).to.equal(3) // default val for Nothing
+      expect(result3.option(3)).to.equal(3) // default val for Nothing
+      expect(result4.option(3)).to.equal(3)
+      expect(result5).to.be.NaN
+      expect(result6).to.equal('x1')
     })
   })
 })
