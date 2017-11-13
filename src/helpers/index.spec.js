@@ -462,5 +462,30 @@ describe('Crocks helpers', () => {
       expect(result5).to.be.NaN
       expect(result6).to.equal('x1')
     })
+
+    /**
+     * This works but I'm wondering if there is a simpler
+     * way with the available functions.
+     */
+    it('Can be created for binary functions with liftA2', () => {
+      const liftA2 = require('crocks/helpers/liftA2')
+      const safe = require('crocks/Maybe/safe')
+      const curry = require('crocks/helpers/curry')
+      const safeLift2 = (pred, fn) => (a, b) => {
+        const val1 = safe(pred, a)
+        const val2 = safe(pred, b)
+        const fnC = curry(fn)
+        return liftA2(fnC, val1, val2)
+      }
+      const add = (a, b) => a + b
+      const safeAdd = safeLift2(isNumber, add)
+      const result = safeAdd(1, 2)
+      const result2 = safeAdd(null, 2)
+      const result3 = safeAdd(4, undefined)
+
+      expect(result.inspect()).to.equal('Just 3')
+      expect(result2.inspect()).to.equal('Nothing')
+      expect(result3.inspect()).to.equal('Nothing')
+    })
   })
 })

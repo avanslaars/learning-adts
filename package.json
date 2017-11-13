@@ -22,7 +22,7 @@
     "fix": "standard --fix",
     "test": "mocha **/*.spec.js --watch",
     "test:once": "mocha **/*.spec.js",
-    "test:ma": "mocha **/*.spec.js --watch --reporter mochawesome",
+    "test:ma": "mocha **/*.spec.js --reporter mochawesome && open ./mochawesome-report/mochawesome.html",
     "precommit": "npm run lint && npm run test:once"
   },
   "quokka": {

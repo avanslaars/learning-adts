@@ -1,11 +1,10 @@
 /* eslint no-unused-expressions:0 */
 'use strict'
-// TODO: examples for: ap, bimap, swap
 const expect = require('chai').expect
 
-const Pred = require('crocks/pred')
-
-describe('The Pred Mondad', () => {
+describe('Pred', () => {
+  // TODO: examples for: ap, bimap, swap
+  const Pred = require('crocks/pred')
   /**
    * I'm sure there is some magical application of this, but
    * right now, all I can see if a wrapper around a predicate
