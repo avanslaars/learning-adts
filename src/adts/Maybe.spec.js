@@ -43,7 +43,8 @@ describe('Maybe', () => {
     })
     /**
        * You might think null or undefined would automatically be converted to a Nothing
-       * but this is not the case. The constructor doesn't come with any opinions. That's a good thing :)
+       * but this is not the case. The constructor doesn't come with any opinions.
+       * That's a good thing :)
        */
     it('Will create a Just null', () => {
       const justNull = Maybe.of(null)
