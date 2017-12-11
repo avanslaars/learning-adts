@@ -1,6 +1,9 @@
 const expect = require('chai').expect
 
 describe('Monoids', () => {
+  const inc = n => n + 1
+  const dbl = n => n * 2
+
   context('Sum', () => {
     const Sum = require('crocks/Sum')
     it('Sum adds values through concat', () => {
@@ -51,6 +54,17 @@ describe('Monoids', () => {
       l1.concat(l2).concat(l3) // Last( Just 3 )
       l2.concat(l1).concat(l3) // Last( Just 3 )
       l3.concat(l1).concat(l2) // Last( Just 1 )
+    })
+  })
+
+  context('Endo', () => {
+    const Endo = require('crocks/Endo')
+    it('composes functions', () => {
+      const e1 = Endo(inc)
+      const e2 = Endo(dbl)
+      const fn = e1.concat(e2).valueOf()
+      const result = fn(2)
+      expect(result).to.equal(6)
     })
   })
 
