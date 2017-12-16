@@ -1,3 +1,4 @@
+// @ts-check
 const expect = require('chai').expect
 
 describe('Understanding some of the laws', () => {

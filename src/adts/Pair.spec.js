@@ -1,3 +1,4 @@
+// @ts-check
 /* eslint no-unused-expressions:0 */
 
 'use strict'

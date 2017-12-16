@@ -1,3 +1,4 @@
+// @ts-check
 'use strict'
 // TODO: examples for: ap, concat, either, equals, sequence, swap, traverse
 const expect = require('chai').expect

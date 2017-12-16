@@ -1,3 +1,4 @@
+// @ts-check
 /* eslint no-unused-expressions:0 */
 const expect = require('chai').expect
 const sinon = require('sinon')
@@ -153,8 +154,8 @@ describe('Crocks helpers', () => {
 
       const chainFn = x =>
         getP1(x)
-          .then(y => console.log(y) || getP2(y))
-          .then(z => console.log(z) || getP3(z))
+          .then(getP2)
+          .then(getP3)
 
       const compFn = composeP(getP3, getP2, getP1)
       const result1 = chainFn('x')
