@@ -3,7 +3,7 @@ const expect = require('chai').expect
 
 describe('Combinators', () => {
   const { inc, dbl, sqr } = require('../utils')
-  context('applyTo', () => {
+  describe('applyTo', () => {
     const applyTo = require('crocks/combinators/applyTo')
     /**
      * applyTo takes a function as its first argument and returns the result of
@@ -28,7 +28,7 @@ describe('Combinators', () => {
     })
   })
 
-  context('composeB', () => {
+  describe('composeB', () => {
       /**
        * composeB composes 2 functions from right to left
        * The code below is equivalent to:
@@ -58,7 +58,7 @@ describe('Combinators', () => {
     })
   })
 
-  context('constant', () => {
+  describe('constant', () => {
     const constant = require('crocks/combinators/constant')
     /**
      * constant takes a value and returns a function that
@@ -74,7 +74,7 @@ describe('Combinators', () => {
     })
   })
 
-  context('flip', () => {
+  describe('flip', () => {
     // crocks/combinators/flip
     const flip = require('crocks/combinators/flip')
     it('Flips the first two arguments', () => {
@@ -88,7 +88,7 @@ describe('Combinators', () => {
     })
   })
 
-  context('identity', () => {
+  describe('identity', () => {
     const identity = require('crocks/combinators/identity')
     it('Just returns the value that was passed to it', () => {
       const value = 'A'
@@ -97,7 +97,7 @@ describe('Combinators', () => {
     })
   })
 
-  context('reverseApply', () => {
+  describe('reverseApply', () => {
     const reverseApply = require('crocks/combinators/reverseApply')
     it('Takes a value and returns a fn that takes a fn to be applied to the value', () => {
       const fn = reverseApply(1) // start with a value
@@ -106,7 +106,7 @@ describe('Combinators', () => {
     })
   })
 
-  context('substitution', () => {
+  describe('substitution', () => {
     // substitution : (a -> b -> c) -> (a -> b) -> a -> c
     const substitution = require('crocks/combinators/substitution')
     const {converge, identity} = require('ramda')

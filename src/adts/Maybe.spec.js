@@ -12,7 +12,7 @@ describe('Maybe', () => {
    * null or undefined and is one of the most basic ADTs that has practical application
    * all on its own
    */
-  context('construction', () => {
+  describe('construction', () => {
     /**
        * A Maybe instance will either have a value, wrapped in a Just container
        * or have no value and be represented by a Nothing
@@ -62,7 +62,7 @@ describe('Maybe', () => {
      * To get back a Just or Nothing we can create a function and make the decision
      * ourselves, returning either a Just with the desired value or a Nothing
      */
-  context('Maybe from a custom function', () => {
+  describe('Maybe from a custom function', () => {
     // We can pull the Just and Nothing constructors out by destructuring Maybe
     const { Just, Nothing } = Maybe
     const getMaybe = value => (value ? Just(value) : Nothing())
@@ -109,7 +109,7 @@ describe('Maybe', () => {
      * `safe` takes a predicate function (a function that returns a bool) and a value
      * and returns a Just or Nothing based on evaluating that predicate against the value
      */
-  context('Maybe using the `safe` utility function', () => {
+  describe('Maybe using the `safe` utility function', () => {
     const safe = require('crocks/Maybe/safe')
 
     it('Returns a Nothing when the predicate evaluates to false', () => {
@@ -126,7 +126,7 @@ describe('Maybe', () => {
        * And of course, `safe` is curried, so we can create a new function by passing it just
        * our predicate and then using that resulting function on multiple values
        */
-    context('curried safe', () => {
+    describe('curried safe', () => {
       const betweenOneAndTen = n => n >= 1 && n <= 10
       const maybeOneToTen = safe(betweenOneAndTen)
 
@@ -152,8 +152,8 @@ describe('Maybe', () => {
      * if it's a Just or a Nothing, so we need code that can handle either
      * scenario, and this is the entire point of the Maybe type
      */
-  context('Methods', () => {
-    context('.map', () => {
+  describe('Methods', () => {
+    describe('.map', () => {
       /**
          * map will unwrap our Maybe, apply the passed function to a value
          * and return the result as a Maybe. That is, in the case where we have
@@ -178,7 +178,7 @@ describe('Maybe', () => {
       })
     })
 
-    context('.chain', () => {
+    describe('.chain', () => {
       /**
          * The `prop` function attempts to pull the value from a key on an object
          * If that key is present, you get a Just of the value, otherwise, Nothing
@@ -206,7 +206,7 @@ describe('Maybe', () => {
       })
     })
 
-    context('.option', () => {
+    describe('.option', () => {
       /**
          * We need to be able to get a value out of a Maybe.
          * To do this safely, we'll use `option`. This will accept
@@ -226,7 +226,7 @@ describe('Maybe', () => {
       })
     })
 
-    context('.either', () => {
+    describe('.either', () => {
       /**
          * Another approach for extracting the value from a Maybe
          * is with the `either` method. This method accepts two functions,
@@ -256,7 +256,7 @@ describe('Maybe', () => {
       })
     })
 
-    context('.alt', () => {
+    describe('.alt', () => {
       /**
        * The Maybe keeps our operations safe by skipping operations that might otherwise
        * throw an exception with a null or undefined value
@@ -280,7 +280,7 @@ describe('Maybe', () => {
     })
   })
 
-  context('Maybe.coalesce', () => {
+  describe('Maybe.coalesce', () => {
     /**
      * The `alt` method is one way to "recover" in a situation where
      * We end up with a Nothing but we'd like a default Just so we can

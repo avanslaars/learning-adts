@@ -7,7 +7,7 @@ const {inc, dbl, sqr} = require('../utils')
 // crocks/helpers/branch a -> Pair a a
 
 describe('Crocks helpers', () => {
-  context('assign', () => {
+  describe('assign', () => {
     const assign = require('crocks/helpers/assign')
     it('merges two objects', () => {
       const obj1 = {a: 'A', b: 'B'}
@@ -26,7 +26,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('assoc', () => {
+  describe('assoc', () => {
     const assoc = require('crocks/helpers/assoc')
 
     it('Creates a new object by attaching the new property to the input object', () => {
@@ -44,7 +44,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('binary', () => {
+  describe('binary', () => {
     const binary = require('crocks/helpers/binary')
     const cat3 = (a, b, c) => `${a || ''} ${b || ''} ${c || ''}`.trim()
 
@@ -69,7 +69,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('compose', () => {
+  describe('compose', () => {
     const compose = require('crocks/helpers/compose')
     it('composes two functions', () => {
       const incDbl = compose(dbl, inc)
@@ -84,7 +84,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('composeK', () => {
+  describe('composeK', () => {
     const composeK = require('crocks/helpers/composeK')
     const compose = require('crocks/helpers/compose')
     const chain = require('crocks/pointfree/chain')
@@ -133,7 +133,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('composeP', () => {
+  describe('composeP', () => {
     const composeP = require('crocks/helpers/composeP')
     it('composes promise returning function', () => {
       const getP1 = x => {
@@ -170,7 +170,7 @@ describe('Crocks helpers', () => {
 
   // TODO: composeS
 
-  context('curry', () => {
+  describe('curry', () => {
     const curry = require('crocks/helpers/curry')
     it('curries an uncurried function', () => {
       const add = (a, b) => a + b
@@ -181,7 +181,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('defaultProps', () => {
+  describe('defaultProps', () => {
     const defaultProps = require('crocks/helpers/defaultProps')
     it('Assigns defaults to multiple keys', () => {
       const input = {
@@ -208,7 +208,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('defaultTo', () => {
+  describe('defaultTo', () => {
     const defaultTo = require('crocks/helpers/defaultTo')
     it('guards against null, undefined and NaN', () => {
       const result1 = defaultTo('x', null)
@@ -221,7 +221,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('dissoc', () => {
+  describe('dissoc', () => {
     const dissoc = require('crocks/helpers/dissoc')
     it('Creates a new object without the specified property', () => {
       const input = {a: 'a', b: 'b', c: 'c'}
@@ -231,7 +231,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('fanout', () => {
+  describe('fanout', () => {
     const fanout = require('crocks/helpers/fanout')
     it('takes functions and created a Pair', () => {
       const splitValue = fanout(dbl, inc)
@@ -244,7 +244,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('fromPairs', () => {
+  describe('fromPairs', () => {
     const fromPairs = require('crocks/helpers/fromPairs')
     const Pair = require('crocks/Pair')
     const List = require('crocks/List')
@@ -273,7 +273,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('liftA2/liftA3', () => {
+  describe('liftA2/liftA3', () => {
     const liftA2 = require('crocks/helpers/liftA2')
     const liftA3 = require('crocks/helpers/liftA3')
     const curry = require('crocks/helpers/curry')
@@ -364,12 +364,12 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context.skip('mapReduce', () => {
+  describe.skip('mapReduce', () => {
     // TODO: Figure this out and add tests
     // const mapReduce = require('crocks/helpers/mapReduce')
   })
 
-  context('objOf', () => {
+  describe('objOf', () => {
     const objOf = require('crocks/helpers/objOf')
     it('Creates an object from a string and a value', () => {
       const expected = {a: 'A'}
@@ -379,11 +379,11 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context.skip('omit', () => {
+  describe.skip('omit', () => {
 
   })
 
-  context('once', () => {
+  describe('once', () => {
     const once = require('crocks/helpers/once')
     it('Only runs the function once even when called mutiple times', () => {
       const fn = sinon.stub().returns(1)
@@ -395,7 +395,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('prop', () => {
+  describe('prop', () => {
     const prop = require('crocks/Maybe/prop')
     it('Returns a Just for an existing property', () => {
       const input = { a: 'A', b: 'B' }
@@ -410,7 +410,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('propPath', () => {
+  describe('propPath', () => {
     const propPath = require('crocks/Maybe/propPath')
     it('Returns a Just for an existing property at a path', () => {
       const input = { a: { b: { c: 'C' } } }
@@ -431,7 +431,7 @@ describe('Crocks helpers', () => {
     })
   })
 
-  context('safeLift', () => {
+  describe('safeLift', () => {
     const safeLift = require('crocks/Maybe/safeLift')
     const isNumber = require('crocks/predicates/isNumber')
     it('Lifts and operation into a Maybe context', () => {

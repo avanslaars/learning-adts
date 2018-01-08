@@ -3,7 +3,7 @@ const expect = require('chai').expect
 
 describe('IO', () => {
   const IO = require('crocks/IO')
-  context('construction', () => {
+  describe('construction', () => {
     /**
      * The goal here is to wrap impure/unsafe code
      * So something like the safeDOM could be wrapped

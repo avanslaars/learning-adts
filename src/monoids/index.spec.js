@@ -5,7 +5,7 @@ describe('Monoids', () => {
   const inc = n => n + 1
   const dbl = n => n * 2
 
-  context('Sum', () => {
+  describe('Sum', () => {
     const Sum = require('crocks/Sum')
     it('Sum adds values through concat', () => {
       const s1 = Sum(1)
@@ -14,7 +14,7 @@ describe('Monoids', () => {
     })
   })
 
-  context('All', () => {
+  describe('All', () => {
     const All = require('crocks/All')
     it('All contains booleans & concat is logical AND', () => {
       const a1 = All.empty() // All true
@@ -30,7 +30,7 @@ describe('Monoids', () => {
     })
   })
 
-  context('First', () => {
+  describe('First', () => {
     const First = require('crocks/First')
     const Maybe = require('crocks/Maybe')
     it('Keeps the First Just from the concat', () => {
@@ -44,7 +44,7 @@ describe('Monoids', () => {
     })
   })
 
-  context('Last', () => {
+  describe('Last', () => {
     const Last = require('crocks/Last')
     const Maybe = require('crocks/Maybe')
     it('Keeps the Last Just from the concat', () => {
@@ -58,7 +58,7 @@ describe('Monoids', () => {
     })
   })
 
-  context('Endo', () => {
+  describe('Endo', () => {
     const Endo = require('crocks/Endo')
     it('composes functions', () => {
       const e1 = Endo(inc)
@@ -69,10 +69,10 @@ describe('Monoids', () => {
     })
   })
 
-  context('mconcat and mreduce', () => {
+  describe('mconcat and mreduce', () => {
     const mconcat = require('crocks/helpers/mconcat')
     const mreduce = require('crocks/helpers/mreduce')
-    context('with All', () => {
+    describe('with All', () => {
       const All = require('crocks/All')
       it('Concats a list to a All bool with All', () => {
         const result1 = mconcat(All, [true, 'test', 3])
@@ -91,7 +91,7 @@ describe('Monoids', () => {
       })
     })
 
-    context('with Sum', () => {
+    describe('with Sum', () => {
       const Sum = require('crocks/Sum')
       it('adds up a list of numbers', () => {
         const result = mconcat(Sum, [1, 2, 3, 4, 5])
@@ -104,7 +104,7 @@ describe('Monoids', () => {
       })
     })
 
-    context('with Endo', () => {
+    describe('with Endo', () => {
       const Endo = require('crocks/Endo')
       const inc = n => n + 1
       const dbl = n => n * 2

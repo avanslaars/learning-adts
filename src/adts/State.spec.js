@@ -7,7 +7,7 @@ describe('State', () => {
   const State = require('crocks/State')
   const Pair = require('crocks/Pair')
 
-  context('Basics', () => {
+  describe('Basics', () => {
     it('of puts the value in the resultant - runWith supplies the state', () => {
       const s = State.of(3)
       const result = s.runWith(10)

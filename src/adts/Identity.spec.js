@@ -7,7 +7,7 @@ describe('Identity', () => {
   const Identity = require('crocks/identity')
   const { dbl, inc } = require('../utils')
 
-  context('Identity Construction', () => {
+  describe('Identity Construction', () => {
     // of is a "constructor" method for most of the ADTs in crocks
     it('constructs with the of method', () => {
       const result = Identity.of(3)
@@ -25,7 +25,7 @@ describe('Identity', () => {
    * Identity is basically just a container for a single value...
    * Let's see what it offers over just using a value
    */
-  context('Mapping Identity', () => {
+  describe('Mapping Identity', () => {
     it('uses map to transform contained values', () => {
       const id = Identity.of(3)
       const doubled = id.map(dbl)
@@ -60,7 +60,7 @@ describe('Identity', () => {
     })
   })
 
-  context('Chaining Identity', () => {
+  describe('Chaining Identity', () => {
     /**
      * Let's define a function that takes a value and returns some result
      * based on that value as an Identity...
@@ -109,7 +109,7 @@ describe('Identity', () => {
     })
   })
 
-  context('Identity value method', () => {
+  describe('Identity value method', () => {
     it('Unwraps the Identity and returns the contained value', () => {
       const id = Identity.of(3)
       expect(id.valueOf()).to.eql(3)
@@ -120,7 +120,7 @@ describe('Identity', () => {
    * Let's look at the `ap` method...
    * We'll be using functions as the value in our Identity
    */
-  context('Identity ap method', () => {
+  describe('Identity ap method', () => {
     // First class functions in JS mean we can have an Identity Function
     it('Can wrap a function like any other value', () => {
       // We're just using the dbl fn we pulled in from utils
@@ -158,7 +158,7 @@ describe('Identity', () => {
    * For now, we should be able to get away with arrays...
    *
    */
-  context('Identity concat method', () => {
+  describe('Identity concat method', () => {
     /**
      * The `concat` method requires that the Identities involved contain semigroups
      * and those semigroups need to be of the same type
@@ -183,7 +183,7 @@ describe('Identity', () => {
     })
   })
 
-  context('Identity equals', () => {
+  describe('Identity equals', () => {
     it('compares wrapped values', () => {
       const id1 = Identity.of(3)
       const id2 = Identity.of(3)

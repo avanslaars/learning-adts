@@ -8,7 +8,7 @@ describe('Async', () => {
   const Async = require('crocks/async')
   const R = require('ramda')
 
-  context('Async Quick start', () => {
+  describe('Async Quick start', () => {
     /**
      * We can create an Async by passing a function to the constructor
      * This function accepts two functions as arguments, a rejection
@@ -61,7 +61,7 @@ describe('Async', () => {
     })
   })
 
-  context('Async Construction', () => {
+  describe('Async Construction', () => {
     it('Can be created as Resolved', () => {
       const task = Async.Resolved('Hooray!')
       task.fork(() => expect.fail(), res => expect(res).to.eq('Hooray!'))
@@ -163,7 +163,7 @@ describe('Async', () => {
     })
   })
 
-  context('Asyncs can be converted to promises', () => {
+  describe('Asyncs can be converted to promises', () => {
     /**
      * Calling toPromise on an Async will result in a Promise.
      * Since promises are eager, we lose the advantages of lazy
@@ -176,7 +176,7 @@ describe('Async', () => {
     })
   })
 
-  context('Asyncs can recover from Rejections with Async.alt', () => {
+  describe('Asyncs can recover from Rejections with Async.alt', () => {
     /**
      * `alt` accepts an Async and when invoked on a Rejected, it will
      * simply return the provided Async as the new Async for the remainder
@@ -197,7 +197,7 @@ describe('Async', () => {
     })
   })
 
-  context('Resolved Async values can be transformed with map', () => {
+  describe('Resolved Async values can be transformed with map', () => {
     it('Performs transformations on Resolved', () => {
       const task = Async.Resolved({ name: 'Bob' })
       task
@@ -229,8 +229,8 @@ describe('Async', () => {
     })
   })
 
-  context('Flatten nested Asyncs with Async.chain', () => {
-    it('Does what it says in the context ;)', () => {
+  describe('Flatten nested Asyncs with Async.chain', () => {
+    it('Does what it says in the describe ;)', () => {
       /**
        * We often need to get data asynchronously and then use part of
        * that data to get some other data asynchronously
@@ -247,7 +247,7 @@ describe('Async', () => {
     })
   })
 
-  context('Recover from errors with Async.coalesce', () => {
+  describe('Recover from errors with Async.coalesce', () => {
     it('Allows a rejected Async to be converted to a Resolved', () => {
       const task = Async.Rejected(new Error('Oops!'))
       task
@@ -266,7 +266,7 @@ describe('Async', () => {
     })
   })
 
-  context('Switch Rejected and Resolved with swap', () => {
+  describe('Switch Rejected and Resolved with swap', () => {
     it('Moves a Rejected to a Resolved', () => {
       const task = Async.Rejected(new Error('Oops!'))
       task

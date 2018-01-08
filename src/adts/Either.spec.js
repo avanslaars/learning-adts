@@ -19,7 +19,7 @@ describe('Either', () => {
    * and therefore, the favored value).
    */
 
-  context('Either Construction', () => {
+  describe('Either Construction', () => {
     it('Creates a Right using the Either.of method', () => {
       const result = Either.of(3)
       expect(result.inspect()).to.eql('Right 3')
@@ -55,7 +55,7 @@ describe('Either', () => {
     })
   })
 
-  context('Mapping and Chaining Eithers', () => {
+  describe('Mapping and Chaining Eithers', () => {
     it('Runs transformations on a Right', () => {
       const theRight = Either.of(3)
       const result = theRight.map(inc).map(dbl)
@@ -91,7 +91,7 @@ describe('Either', () => {
     })
   })
 
-  context('Define transformations for Left and Right with bimap', () => {
+  describe('Define transformations for Left and Right with bimap', () => {
     it('Will transform a Left', () => {
       const theLeft = Either.Left('err')
       const result = theLeft.bimap(str => str.toUpperCase(), identity)
@@ -105,7 +105,7 @@ describe('Either', () => {
     })
   })
 
-  context('Recovering from error states with alt and coalesce', () => {
+  describe('Recovering from error states with alt and coalesce', () => {
     it('Alt allows a default to replace a Left', () => {
       const theLeft = Either.Left('err')
       const result = theLeft.alt(Either.Right('default'))

@@ -11,7 +11,7 @@ describe('Pair', () => {
   const fanout = require('crocks/helpers/fanout')
   const { inc, dbl } = require('../utils')
 
-  context('Pair construction', () => {
+  describe('Pair construction', () => {
     it('is constructed with the new keyword', () => {
       const result = new Pair('first', 'second')
       expect(result.inspect()).to.eql('Pair( "first", "second" )')
@@ -32,7 +32,7 @@ describe('Pair', () => {
       expect(result.inspect()).to.eql('Pair( 4, 2 )')
     })
 
-    context('branch', () => {
+    describe('branch', () => {
       const branch = require('crocks/Pair/branch')
       it('Can be created with the branch function', () => {
         const result = branch(1)
@@ -41,7 +41,7 @@ describe('Pair', () => {
     })
   })
 
-  context('Mapping and Chaining with a Pair', () => {
+  describe('Mapping and Chaining with a Pair', () => {
     it('Invokes the transformation function on the second value', () => {
       const pair = new Pair(1, 2)
       const result = pair.map(dbl)
@@ -100,7 +100,7 @@ describe('Pair', () => {
     })
   })
 
-  context('Swapping values in a Pair', () => {
+  describe('Swapping values in a Pair', () => {
     const identity = require('crocks/combinators/identity')
     /**
      * Since some operations favor the second value over the first
@@ -128,7 +128,7 @@ describe('Pair', () => {
     })
   })
 
-  context('Transforming both values in a Pair with bimap', () => {
+  describe('Transforming both values in a Pair with bimap', () => {
     it('Takes two transformation functions', () => {
       const pair = new Pair(1, 2)
       const result = pair.bimap(x => x + 1, x => x * 3)
@@ -136,7 +136,7 @@ describe('Pair', () => {
     })
   })
 
-  context('Transform individual values with first and second utils', () => {
+  describe('Transform individual values with first and second utils', () => {
     // const { first, second } = crocks
     const first = require('crocks/pointfree/first')
     const second = require('crocks/pointfree/second')
@@ -171,7 +171,7 @@ describe('Pair', () => {
     })
   })
 
-  context(`Accessing a Pair's values`, () => {
+  describe(`Accessing a Pair's values`, () => {
     /**
      * The pair wraps two values. We access them based on their position
      * using methods that extract either the first or the second value
@@ -198,7 +198,7 @@ describe('Pair', () => {
     })
   })
 
-  context('Combining first and second with merge', () => {
+  describe('Combining first and second with merge', () => {
     it('Passes first and second as arguments to a converging function', () => {
       const pair = new Pair(1, 2)
       const add = (a, b) => a + b
@@ -207,7 +207,7 @@ describe('Pair', () => {
     })
   })
 
-  context('Transform values based on the entire Pair with extend', () => {
+  describe('Transform values based on the entire Pair with extend', () => {
     it('Passes the entire Pair and puts the result in second position', () => {
       const pair = new Pair(1, 2)
       const add = (a, b) => a + b
@@ -225,7 +225,7 @@ describe('Pair', () => {
     })
   })
 
-  context('Pair.concat', () => {
+  describe('Pair.concat', () => {
     /**
      * `concat` requires both values in a Pair to be Semigroups, meaning
      * they will have a concat method that will allow them to be concatenated
@@ -265,7 +265,7 @@ describe('Pair', () => {
     })
   })
 
-  context('Compare value equality with Pair.equals', () => {
+  describe('Compare value equality with Pair.equals', () => {
     it('compares values by position', () => {
       const pair1 = new Pair(1, 2)
       const pair2 = new Pair(1, 2)
@@ -283,7 +283,7 @@ describe('Pair', () => {
     })
   })
 
-  context('Apply functions with ap', () => {
+  describe('Apply functions with ap', () => {
     it('applies a function in a Pair to a value in a Pair', () => {
       /**
        * For the Pair type, `ap` will take a Pair with a function in
