@@ -1,6 +1,4 @@
 // @ts-check
-/* eslint no-unused-expressions:0 */
-const sinon = require('sinon')
 const {inc, dbl, sqr} = require('../utils')
 
 // crocks/helpers/branch a -> Pair a a
@@ -385,12 +383,12 @@ describe('Crocks helpers', () => {
   describe('once', () => {
     const once = require('crocks/helpers/once')
     it('Only runs the function once even when called mutiple times', () => {
-      const fn = sinon.stub().returns(1)
+      const fn = jest.fn(() => 1)
       const onceFn = once(fn)
       onceFn()
       onceFn()
       onceFn()
-      sinon.assert.calledOnce(fn)
+      expect(fn.mock.calls.length).toBe(1)
     })
   })
 
