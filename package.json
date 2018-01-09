@@ -10,20 +10,16 @@
     "ramda": "^0.24.1"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
     "husky": "^0.14.3",
     "jest": "^22.0.4",
-    "mocha": "^3.5.3",
-    "mochawesome": "^2.3.1",
     "sinon": "^4.1.2",
     "standard": "^10.0.3"
   },
   "scripts": {
     "lint": "standard",
     "fix": "standard --fix",
-    "test": "jest",
-    "test:once": "mocha **/*.spec.js",
-    "test:ma": "mocha **/*.spec.js --reporter mochawesome && open ./mochawesome-report/mochawesome.html",
+    "test": "jest --watch",
+    "test:once": "jest",
     "precommit": "npm run lint && npm run test:once"
   },
   "quokka": {
@@ -32,8 +28,8 @@
   "standard": {
     "globals": [
       "describe",
-      "context",
-      "it"
+      "it",
+      "expect"
     ]
   }
 }

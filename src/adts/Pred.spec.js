@@ -1,7 +1,6 @@
 // @ts-check
 /* eslint no-unused-expressions:0 */
 'use strict'
-const expect = require('chai').expect
 
 describe('Pred', () => {
   // TODO: examples for: ap, bimap, swap
@@ -16,7 +15,7 @@ describe('Pred', () => {
     const pred = new Pred(x => x > 10)
     const result1 = pred.runWith(15)
     const result2 = pred.runWith(5)
-    expect(result1).to.be.true
-    expect(result2).to.be.false
+    expect(result1).toBe(true)
+    expect(result2).toBe(false)
   })
 })

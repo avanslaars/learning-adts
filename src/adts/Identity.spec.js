@@ -1,8 +1,6 @@
 // @ts-check
 'use strict'
 
-const expect = require('chai').expect
-
 describe('Identity', () => {
   const Identity = require('crocks/identity')
   const { dbl, inc } = require('../utils')
@@ -11,13 +9,13 @@ describe('Identity', () => {
     // of is a "constructor" method for most of the ADTs in crocks
     it('constructs with the of method', () => {
       const result = Identity.of(3)
-      expect(result.inspect()).to.eql('Identity 3')
+      expect(result.inspect()).toEqual('Identity 3')
     })
 
     // Using `new Identity` also works
     it('constructs with new Identity', () => {
       const result = new Identity(3)
-      expect(result.inspect()).to.eql('Identity 3')
+      expect(result.inspect()).toEqual('Identity 3')
     })
   })
 
@@ -29,7 +27,7 @@ describe('Identity', () => {
     it('uses map to transform contained values', () => {
       const id = Identity.of(3)
       const doubled = id.map(dbl)
-      expect(doubled.inspect()).to.eql('Identity 6')
+      expect(doubled.inspect()).toEqual('Identity 6')
     })
     /**
    * Since most methods on these ADTs will return a new instance of the same type
@@ -38,7 +36,7 @@ describe('Identity', () => {
     it('allows dot-chaining methods', () => {
       const id = Identity.of(3)
       const doubleInc = id.map(dbl).map(inc)
-      expect(doubleInc.inspect()).to.eql('Identity 7')
+      expect(doubleInc.inspect()).toEqual('Identity 7')
     })
     /**
    * So, what happens in the map if the Identity is a null or undefined?
@@ -47,16 +45,16 @@ describe('Identity', () => {
    */
     it('will map over any contained value', () => {
       const nullId = Identity.of(null)
-      expect(nullId.inspect()).to.eql('Identity null')
+      expect(nullId.inspect()).toEqual('Identity null')
 
       const doubleNull = nullId.map(dbl)
-      expect(doubleNull.inspect()).to.eql('Identity 0')
+      expect(doubleNull.inspect()).toEqual('Identity 0')
 
       const undefId = Identity.of(undefined)
-      expect(undefId.inspect()).to.eql('Identity undefined')
+      expect(undefId.inspect()).toEqual('Identity undefined')
 
       const doubleUndef = undefId.map(dbl)
-      expect(doubleUndef.inspect()).to.eql('Identity NaN')
+      expect(doubleUndef.inspect()).toEqual('Identity NaN')
     })
   })
 
@@ -77,7 +75,7 @@ describe('Identity', () => {
     it('Nests types with map', () => {
       const id = Identity.of(3)
       const doubledIdMap = id.map(idFn)
-      expect(doubledIdMap.inspect()).to.eql('Identity Identity 6')
+      expect(doubledIdMap.inspect()).toEqual('Identity Identity 6')
     })
     /**
      * We can avoid this behavior by replacing our call to `map`
@@ -89,7 +87,7 @@ describe('Identity', () => {
     it('Flattens nested types when using chain', () => {
       const id = Identity.of(3)
       const doubledIdMap = id.chain(idFn)
-      expect(doubledIdMap.inspect()).to.eql('Identity 6')
+      expect(doubledIdMap.inspect()).toEqual('Identity 6')
     })
     /**
    * What if our function returned a different type?
@@ -103,7 +101,7 @@ describe('Identity', () => {
       const Maybe = require('crocks/Maybe')
       const id = Identity.of(3)
       const maybeVal = val => Maybe.of(val)
-      expect(() => id.chain(maybeVal)).to.throw(
+      expect(() => id.chain(maybeVal)).toThrow(
         'Identity.chain: Function must return an Identity'
       )
     })
@@ -112,7 +110,7 @@ describe('Identity', () => {
   describe('Identity value method', () => {
     it('Unwraps the Identity and returns the contained value', () => {
       const id = Identity.of(3)
-      expect(id.valueOf()).to.eql(3)
+      expect(id.valueOf()).toEqual(3)
     })
   })
 
@@ -125,7 +123,7 @@ describe('Identity', () => {
     it('Can wrap a function like any other value', () => {
       // We're just using the dbl fn we pulled in from utils
       const idFn = Identity.of(dbl)
-      expect(idFn.inspect()).to.eql('Identity Function')
+      expect(idFn.inspect()).toEqual('Identity Function')
     })
     /**
      * So, once we wrap a function in an Identity, what do we do with it?
@@ -137,14 +135,14 @@ describe('Identity', () => {
       const idFn = Identity.of(dbl)
       const id = Identity.of(3)
       const result = idFn.ap(id)
-      expect(result.inspect()).to.eql('Identity 6')
+      expect(result.inspect()).toEqual('Identity 6')
     })
 
     it(`doesn't work in reverse order`, () => {
       const idFn = Identity.of(dbl)
       const id = Identity.of(3)
       // Calling ap on an Identity that doesn't wrap a function will throw
-      expect(() => id.ap(idFn)).to.throw(
+      expect(() => id.ap(idFn)).toThrow(
         'Identity.ap: Wrapped value must be a function'
       )
     })
@@ -170,14 +168,14 @@ describe('Identity', () => {
       const idArr1 = Identity.of([1, 2, 3])
       const idArr2 = Identity.of([4, 5, 6])
       const result = idArr1.concat(idArr2)
-      expect(result.inspect()).to.eql('Identity [ 1, 2, 3, 4, 5, 6 ]')
-      expect(result.valueOf()).to.eql([1, 2, 3, 4, 5, 6])
+      expect(result.inspect()).toEqual('Identity [ 1, 2, 3, 4, 5, 6 ]')
+      expect(result.valueOf()).toEqual([1, 2, 3, 4, 5, 6])
     })
 
     it(`will throw if one of the containers is not a semigroup`, () => {
       const idArr1 = Identity.of([1, 2, 3])
       const id = Identity.of(3)
-      expect(() => id.concat(idArr1)).to.throw(
+      expect(() => id.concat(idArr1)).toThrow(
         'Identity.concat: Both containers must contain Semigroups of the same type'
       )
     })
@@ -188,9 +186,9 @@ describe('Identity', () => {
       const id1 = Identity.of(3)
       const id2 = Identity.of(3)
       // Different obj references are not equal even with equal contained values
-      expect(id1).not.to.equal(id2)
+      expect(id1).not.toBe(id2)
       // We expect wrapped values to be equal
-      expect(id1.equals(id2)).to.eql(true)
+      expect(id1.equals(id2)).toEqual(true)
     })
   })
 })

@@ -4,6 +4,7 @@ module.exports = wallaby => {
     tests: ['src/**/*.spec.js'],
     env: {
       type: 'node'
-    }
+    },
+    testFramework: 'jest'
   }
 }

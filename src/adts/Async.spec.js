@@ -1,8 +1,6 @@
 // @ts-check
-/* eslint no-unused-expressions:0 */
 'use strict'
 // TODO: examples for: ap, bimap, swap
-const expect = require('chai').expect
 
 describe('Async', () => {
   const Async = require('crocks/async')
@@ -21,7 +19,7 @@ describe('Async', () => {
       const task = new Async((rej, res) => {
         // call rej for failure, res for success as appropriate
       })
-      expect(task.inspect()).to.eq('Async Function')
+      expect(task.inspect()).toEqual('Async Function')
     })
 
     it('Async evaluation is lazy!', () => {
@@ -35,10 +33,8 @@ describe('Async', () => {
        * a certain branch of our logic, there is no sense in making
        * those API calls. Lazy evaluation will make our code more efficient
        */
-      const task = new Async((rej, res) => {
-        expect.fail() // test passes because this never executes
-      })
-      expect(task.inspect()).to.eq('Async Function')
+      const task = new Async((rej, res) => {})
+      expect(task.inspect()).toEqual('Async Function')
     })
 
     it('Executes resolve fn when fork is called on resolved Async', () => {
@@ -48,8 +44,8 @@ describe('Async', () => {
       // Other code can go here, lazy evaluation mean this task
       // will hang out and wait to be fired
       successfulTask.fork(
-        () => expect.fail(), // this fires for a rejected task
-        res => expect(res).to.eq('Hooray!')
+        () => { throw new Error('This code should never be invoked') }, // this fires for a rejected task
+        res => expect(res).toEqual('Hooray!')
       )
     })
 
@@ -57,25 +53,25 @@ describe('Async', () => {
       const successfulTask = new Async((rej, res) => {
         rej('Boo!')
       })
-      successfulTask.fork(err => expect(err).to.eq('Boo!'), res => expect.fail())
+      successfulTask.fork(err => expect(err).toEqual('Boo!'), res => { throw new Error('This code should never be invoked') })
     })
   })
 
   describe('Async Construction', () => {
     it('Can be created as Resolved', () => {
       const task = Async.Resolved('Hooray!')
-      task.fork(() => expect.fail(), res => expect(res).to.eq('Hooray!'))
+      task.fork(() => { throw new Error('This code should never be invoked') }, res => expect(res).toEqual('Hooray!'))
     })
 
     it('Can be created as Rejected', () => {
       const task = Async.Rejected('Boo!')
-      task.fork(err => expect(err).to.eq('Boo!'), () => expect.fail())
+      task.fork(err => expect(err).toEqual('Boo!'), () => { throw new Error('This code should never be invoked') })
     })
 
     it('Can be created with the of method', () => {
       // Using `of` will create a Resolved Async
       const task = Async.of('Hooray!')
-      task.fork(() => expect.fail(), res => expect(res).to.eq('Hooray!'))
+      task.fork(() => { throw new Error('This code should never be invoked') }, res => expect(res).toEqual('Hooray!'))
     })
 
     it('Can handle multiple Asyncs with Async.all (success)', () => {
@@ -88,8 +84,8 @@ describe('Async', () => {
       const task2 = Async.Resolved('Hooray 2!')
       const allTask = Async.all([task1, task2])
       allTask.fork(
-        () => expect.fail(),
-        res => expect(res).to.eql(['Hooray 1!', 'Hooray 2!'])
+        () => { throw new Error('This code should never be invoked') },
+        res => expect(res).toEqual(['Hooray 1!', 'Hooray 2!'])
       )
     })
 
@@ -99,7 +95,7 @@ describe('Async', () => {
       const task3 = Async.Rejected('Boo!')
       const allTask = Async.all([task1, task2, task3])
       // A single failure will call the rejection function
-      allTask.fork(err => expect(err).to.eq('Boo!'), () => expect.fail())
+      allTask.fork(err => expect(err).toEqual('Boo!'), () => { throw new Error('This code should never be invoked') })
     })
 
     it('Can handle multiple Asyncs with Async.all (multiple failures)', () => {
@@ -112,7 +108,7 @@ describe('Async', () => {
        * Multiple failures will result in the rejection function being
        * invoked with the last error being passed as the argument
        */
-      allTask.fork(err => expect(err).to.eq('Boo 3!'), () => expect.fail())
+      allTask.fork(err => expect(err).toEqual('Boo 3!'), () => { throw new Error('This code should never be invoked') })
     })
 
     it('Can be created from a function that returns a promise (success)', () => {
@@ -125,7 +121,7 @@ describe('Async', () => {
        */
       const taskFn = Async.fromPromise(getPromise)
       const task = taskFn('Hooray!')
-      task.fork(() => expect.fail(), res => expect(res).to.eq('Hooray!'))
+      task.fork(() => { throw new Error('This code should never be invoked') }, res => expect(res).toEqual('Hooray!'))
     })
 
     it('Can be created from a function that returns a promise (failure)', () => {
@@ -135,10 +131,10 @@ describe('Async', () => {
       const task = taskFn()
       task.fork(
         err => {
-          expect(err).to.be.instanceof(Error)
-          expect(err.message).to.eq('Oops!')
+          expect(err).toBeInstanceOf(Error)
+          expect(err.message).toEqual('Oops!')
         },
-        () => expect.fail()
+        () => { throw new Error('This code should never be invoked') }
       )
     })
 
@@ -146,7 +142,7 @@ describe('Async', () => {
       const cpsFunction = (msg, cb) => cb(null, msg)
       const taskFn = Async.fromNode(cpsFunction)
       const task = taskFn('Hooray!')
-      task.fork(() => expect.fail(), res => expect(res).to.eql('Hooray!'))
+      task.fork(() => { throw new Error('This code should never be invoked') }, res => expect(res).toEqual('Hooray!'))
     })
 
     it('Can be created from a CPS style function (failure)', () => {
@@ -155,10 +151,10 @@ describe('Async', () => {
       const task = taskFn('Hooray!')
       task.fork(
         err => {
-          expect(err).to.be.instanceof(Error)
-          expect(err.message).to.eq('Oops!')
+          expect(err).toBeInstanceOf(Error)
+          expect(err.message).toEqual('Oops!')
         },
-        () => expect.fail()
+        () => { throw new Error('This code should never be invoked') }
       )
     })
   })
@@ -172,7 +168,7 @@ describe('Async', () => {
     it('Can be converted to a promise with toPromise', () => {
       const task = Async.Resolved('Hooray!')
       // No need for fork, converting makes it eager, as expected from a Promise
-      task.toPromise().then(res => expect(res).to.eq('Hooray!'))
+      task.toPromise().then(res => expect(res).toEqual('Hooray!'))
     })
   })
 
@@ -186,14 +182,14 @@ describe('Async', () => {
       const rejTask = Async.Rejected('👎')
       rejTask
         .alt(Async.Resolved('🎉'))
-        .fork(() => expect.fail(), res => expect(res).to.eq('🎉'))
+        .fork(() => { throw new Error('This code should never be invoked') }, res => expect(res).toEqual('🎉'))
     })
 
     it('Can turn a Rejected into a default Resolved', () => {
       const rejTask = Async.Resolved('👍🏻')
       rejTask
         .alt(Async.Resolved('🎉')) // Not executed for a Resolved
-        .fork(() => expect.fail(), res => expect(res).to.eq('👍🏻'))
+        .fork(() => { throw new Error('This code should never be invoked') }, res => expect(res).toEqual('👍🏻'))
     })
   })
 
@@ -203,7 +199,7 @@ describe('Async', () => {
       task
         .map(R.prop('name'))
         .map(R.toUpper)
-        .fork(() => expect.fail(), res => expect(res).to.eq('BOB'))
+        .fork(() => { throw new Error('This code should never be invoked') }, res => expect(res).toEqual('BOB'))
     })
 
     /**
@@ -214,17 +210,17 @@ describe('Async', () => {
       const task = Async.Resolved({ name: 'Bob' })
       task
         .map(R.compose(R.toUpper, R.prop('name')))
-        .fork(() => expect.fail(), res => expect(res).to.eq('BOB'))
+        .fork(() => { throw new Error('This code should never be invoked') }, res => expect(res).toEqual('BOB'))
     })
 
     it('Ignores transformations on Rejected', () => {
       const task = Async.Rejected(new Error('Oops!'))
       task.map(R.prop('name')).map(R.toUpper).fork(
         err => {
-          expect(err).to.be.instanceof(Error)
-          expect(err.message).to.eq('Oops!')
+          expect(err).toBeInstanceOf(Error)
+          expect(err.message).toEqual('Oops!')
         },
-        () => expect.fail()
+        () => { throw new Error('This code should never be invoked') }
       )
     })
   })
@@ -241,8 +237,8 @@ describe('Async', () => {
       outerTask
         .chain(res => Async.Resolved('data based on prev response'))
         .fork(
-          () => expect.fail(),
-          res => expect(res).to.eq('data based on prev response')
+          () => { throw new Error('This code should never be invoked') },
+          res => expect(res).toEqual('data based on prev response')
         )
     })
   })
@@ -251,18 +247,18 @@ describe('Async', () => {
     it('Allows a rejected Async to be converted to a Resolved', () => {
       const task = Async.Rejected(new Error('Oops!'))
       task
-        .coalesce(err => `Recovered from ${err.message}`, () => expect.fail())
+        .coalesce(err => `Recovered from ${err.message}`, () => { throw new Error('This code should never be invoked') })
         .fork(
-          () => expect.fail(),
-          res => expect(res).to.eq('Recovered from Oops!')
+          () => { throw new Error('This code should never be invoked') },
+          res => expect(res).toEqual('Recovered from Oops!')
         )
     })
 
     it('Just runs the transformation when Resolved', () => {
       const task = Async.Resolved('success')
       task
-        .coalesce(() => expect.fail(), res => res.toUpperCase())
-        .fork(() => expect.fail(), res => expect(res).to.eq('SUCCESS'))
+        .coalesce(() => { throw new Error('This code should never be invoked') }, res => res.toUpperCase())
+        .fork(() => { throw new Error('This code should never be invoked') }, res => expect(res).toEqual('SUCCESS'))
     })
   })
 
@@ -270,18 +266,18 @@ describe('Async', () => {
     it('Moves a Rejected to a Resolved', () => {
       const task = Async.Rejected(new Error('Oops!'))
       task
-        .swap(err => err.message, () => expect.fail())
-        .fork(() => expect.fail(), res => expect(res).to.eq('Oops!'))
+        .swap(err => err.message, () => { throw new Error('This code should never be invoked') })
+        .fork(() => { throw new Error('This code should never be invoked') }, res => expect(res).toEqual('Oops!'))
     })
 
     it('Moves a Resolved to a Rejected', () => {
       const task = Async.Resolved('Faux Success')
-      task.swap(() => expect.fail(), res => new Error(res)).fork(
+      task.swap(() => { throw new Error('This code should never be invoked') }, res => new Error(res)).fork(
         err => {
-          expect(err).to.be.instanceof(Error)
-          expect(err.message).to.eq('Faux Success')
+          expect(err).toBeInstanceOf(Error)
+          expect(err.message).toEqual('Faux Success')
         },
-        () => expect.fail()
+        () => { throw new Error('This code should never be invoked') }
       )
     })
     /**

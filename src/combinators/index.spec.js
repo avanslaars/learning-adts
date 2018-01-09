@@ -1,5 +1,4 @@
 // @ts-check
-const expect = require('chai').expect
 
 describe('Combinators', () => {
   const { inc, dbl, sqr } = require('../utils')
@@ -11,7 +10,7 @@ describe('Combinators', () => {
      */
     it('Applies a function to a value', () => {
       const doubled = applyTo(dbl, 3)
-      expect(doubled).to.eql(6)
+      expect(doubled).toEqual(6)
     })
 
     /**
@@ -21,10 +20,10 @@ describe('Combinators', () => {
      */
     it('Is automatically curried', () => {
       const doubleNum = applyTo(dbl)
-      expect(doubleNum).to.be.instanceof(Function)
+      expect(doubleNum).toBeInstanceOf(Function)
 
       const result = doubleNum(7)
-      expect(result).to.eql(14)
+      expect(result).toEqual(14)
     })
   })
 
@@ -41,9 +40,9 @@ describe('Combinators', () => {
     const composeB = require('crocks/combinators/composeB')
     it('Composes two functions', () => {
       const incThenDbl = composeB(dbl, inc)
-      expect(incThenDbl).to.be.instanceof(Function)
+      expect(incThenDbl).toBeInstanceOf(Function)
       const result = incThenDbl(3)
-      expect(result).to.eql(8)
+      expect(result).toEqual(8)
     })
 
       /**
@@ -52,9 +51,9 @@ describe('Combinators', () => {
        */
     it('Composed functions can also be used in compositions', () => {
       const incDblSqr = composeB(sqr, composeB(dbl, inc))
-      expect(incDblSqr).to.be.instanceof(Function)
+      expect(incDblSqr).toBeInstanceOf(Function)
       const result2 = incDblSqr(2)
-      expect(result2).to.eql(36)
+      expect(result2).toEqual(36)
     })
   })
 
@@ -67,10 +66,10 @@ describe('Combinators', () => {
      */
     it('Always returns the same value', () => {
       const alwaysThree = constant(3)
-      expect(alwaysThree).to.be.instanceof(Function)
+      expect(alwaysThree).toBeInstanceOf(Function)
 
       const result = alwaysThree('this argument will be ignored')
-      expect(result).to.eql(3)
+      expect(result).toEqual(3)
     })
   })
 
@@ -83,8 +82,8 @@ describe('Combinators', () => {
       const result = cat('a', 'b', 'c')
       const resultF = catF('a', 'b', 'c')
 
-      expect(result).to.equal('a b c')
-      expect(resultF).to.equal('b a c')
+      expect(result).toBe('a b c')
+      expect(resultF).toBe('b a c')
     })
   })
 
@@ -93,7 +92,7 @@ describe('Combinators', () => {
     it('Just returns the value that was passed to it', () => {
       const value = 'A'
       const result = identity(value)
-      expect(result).to.equal(value)
+      expect(result).toBe(value)
     })
   })
 
@@ -102,7 +101,7 @@ describe('Combinators', () => {
     it('Takes a value and returns a fn that takes a fn to be applied to the value', () => {
       const fn = reverseApply(1) // start with a value
       const result = fn(inc) // pass in a function to be applied
-      expect(result).to.equal(2) // get out the result
+      expect(result).toBe(2) // get out the result
     })
   })
 
@@ -124,11 +123,11 @@ describe('Combinators', () => {
       const add = (a, b) => a + b
       const subFn = substitution(add, inc)
       const result = subFn(1)
-      expect(result).to.equal(3)
+      expect(result).toBe(3)
 
       const conFn = converge(add, [identity, inc])
       const resultR = conFn(1)
-      expect(resultR).to.equal(3)
+      expect(resultR).toBe(3)
     })
   })
 })

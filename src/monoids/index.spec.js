@@ -1,5 +1,4 @@
 // @ts-check
-const expect = require('chai').expect
 
 describe('Monoids', () => {
   const inc = n => n + 1
@@ -10,7 +9,7 @@ describe('Monoids', () => {
     it('Sum adds values through concat', () => {
       const s1 = Sum(1)
       const s2 = Sum(2)
-      expect(s1.concat(s2).inspect()).to.equal('Sum 3')
+      expect(s1.concat(s2).inspect()).toBe('Sum 3')
     })
   })
 
@@ -19,14 +18,14 @@ describe('Monoids', () => {
     it('All contains booleans & concat is logical AND', () => {
       const a1 = All.empty() // All true
       const a2 = All(false) // All false
-      expect(a1.concat(a2).inspect()).to.equal('All false')
+      expect(a1.concat(a2).inspect()).toBe('All false')
     })
 
     it('All contains booleans & concat is logical AND', () => {
       const a1 = All.empty() // All true
       const a2 = All('test') // All true
       const a3 = All(3) // All true
-      expect(a1.concat(a2).concat(a3).inspect()).to.equal('All true')
+      expect(a1.concat(a2).concat(a3).inspect()).toBe('All true')
     })
   })
 
@@ -65,7 +64,7 @@ describe('Monoids', () => {
       const e2 = Endo(dbl)
       const fn = e1.concat(e2).valueOf()
       const result = fn(2)
-      expect(result).to.equal(6)
+      expect(result).toBe(6)
     })
   })
 
@@ -78,16 +77,16 @@ describe('Monoids', () => {
         const result1 = mconcat(All, [true, 'test', 3])
         const result2 = mconcat(All, [true, '', 3])
 
-        expect(result1.inspect()).to.equal('All true')
-        expect(result2.inspect()).to.equal('All false')
+        expect(result1.inspect()).toBe('All true')
+        expect(result2.inspect()).toBe('All false')
       })
 
       it('Reduces a list to a boolean with All', () => {
         const result1 = mreduce(All, [true, 'test', 3]) // true
         const result2 = mreduce(All, [true, '', 3]) // false
 
-        expect(result1).to.equal(true)
-        expect(result2).to.equal(false)
+        expect(result1).toBe(true)
+        expect(result2).toBe(false)
       })
     })
 
@@ -95,12 +94,12 @@ describe('Monoids', () => {
       const Sum = require('crocks/Sum')
       it('adds up a list of numbers', () => {
         const result = mconcat(Sum, [1, 2, 3, 4, 5])
-        expect(result.inspect()).to.equal('Sum 15')
+        expect(result.inspect()).toBe('Sum 15')
       })
 
       it('adds up a list of numbers', () => {
         const result = mreduce(Sum, [1, 2, 3, 4, 5])
-        expect(result).to.equal(15)
+        expect(result).toBe(15)
       })
     })
 
@@ -112,7 +111,7 @@ describe('Monoids', () => {
       it('composes functions from the list, left to right', () => {
         const fn = mreduce(Endo, [inc, dbl])
         const result = fn(3)
-        expect(result).to.equal(8)
+        expect(result).toBe(8)
       })
     })
   })

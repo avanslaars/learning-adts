@@ -1,6 +1,5 @@
 // @ts-check
 /* eslint no-unused-expressions:0 */
-const expect = require('chai').expect
 const sinon = require('sinon')
 const {inc, dbl, sqr} = require('../utils')
 
@@ -14,7 +13,7 @@ describe('Crocks helpers', () => {
       const obj2 = {c: 'C', d: 'D'}
       const expected = {a: 'A', b: 'B', c: 'C', d: 'D'}
       const result = assign(obj1, obj2)
-      expect(result).to.eql(expected)
+      expect(result).toEqual(expected)
     })
 
     it('merges two objects, favoring values in the 1st obj for shared keys', () => {
@@ -22,7 +21,7 @@ describe('Crocks helpers', () => {
       const obj2 = {b: 'Other B', c: 'C', d: 'D'}
       const expected = {a: 'A', c: 'C', d: 'D', b: 'Other B'}
       const result = assign(obj2, obj1)
-      expect(result).to.eql(expected)
+      expect(result).toEqual(expected)
     })
   })
 
@@ -33,14 +32,14 @@ describe('Crocks helpers', () => {
       const input = {a: 'A'}
       const expected = {a: 'A', b: 'B'}
       const result = assoc('b', 'B', input)
-      expect(result).to.eql(expected)
+      expect(result).toEqual(expected)
     })
 
     it('Changes the value of an existing property in the new object', () => {
       const input = {a: 'A', b: 'x'}
       const expected = {a: 'A', b: 'B'}
       const result = assoc('b', 'B', input)
-      expect(result).to.eql(expected)
+      expect(result).toEqual(expected)
     })
   })
 
@@ -54,8 +53,8 @@ describe('Crocks helpers', () => {
       const result3 = cat3('a', 'b', 'c')
       const result2 = cat2('a', 'b', 'c')
 
-      expect(result3).to.equal('a b c')
-      expect(result2).to.equal('a b')
+      expect(result3).toBe('a b c')
+      expect(result2).toBe('a b')
     })
 
     it('returns a curried function', () => {
@@ -64,8 +63,8 @@ describe('Crocks helpers', () => {
       const result1 = cat2('a', 'b')
       const result2 = cat2('a')('b')
 
-      expect(result1).to.equal('a b')
-      expect(result2).to.equal('a b')
+      expect(result1).toBe('a b')
+      expect(result2).toBe('a b')
     })
   })
 
@@ -74,13 +73,13 @@ describe('Crocks helpers', () => {
     it('composes two functions', () => {
       const incDbl = compose(dbl, inc)
       const result = incDbl(1)
-      expect(result).to.equal(4)
+      expect(result).toBe(4)
     })
 
     it('composes three functions', () => {
       const incDblSqr = compose(sqr, dbl, inc)
       const result = incDblSqr(1)
-      expect(result).to.equal(16)
+      expect(result).toBe(16)
     })
   })
 
@@ -127,9 +126,9 @@ describe('Crocks helpers', () => {
       const kleisliResult = kleisli(data).either(identity, identity)
 
       // All of these produce the same result
-      expect(fluentResult).to.eql(pointFreeResult)
-      expect(kleisliResult).to.eql(fluentResult)
-      expect(kleisliResult).to.eql(pointFreeResult)
+      expect(fluentResult).toEqual(pointFreeResult)
+      expect(kleisliResult).toEqual(fluentResult)
+      expect(kleisliResult).toEqual(pointFreeResult)
     })
   })
 
@@ -163,7 +162,7 @@ describe('Crocks helpers', () => {
       Promise.all([result1, result2])
         .then(([one, two]) => {
           // x - 1 - 2 - 3
-          expect(one).to.eql(two)
+          expect(one).toEqual(two)
         })
     })
   })
@@ -177,7 +176,7 @@ describe('Crocks helpers', () => {
       const addC = curry(add)
       const result1 = addC(1, 2)
       const result2 = addC(1)(2)
-      expect(result1).to.equal(result2)
+      expect(result1).toBe(result2)
     })
   })
 
@@ -204,7 +203,7 @@ describe('Crocks helpers', () => {
       }
 
       const result = defaultProps(theDefaults, input)
-      expect(result).to.eql(expected)
+      expect(result).toEqual(expected)
     })
   })
 
@@ -215,9 +214,9 @@ describe('Crocks helpers', () => {
       const result2 = defaultTo('x', undefined)
       const result3 = defaultTo('x', NaN)
 
-      expect(result1).to.equal('x')
-      expect(result2).to.equal('x')
-      expect(result3).to.equal('x')
+      expect(result1).toBe('x')
+      expect(result2).toBe('x')
+      expect(result3).toBe('x')
     })
   })
 
@@ -227,7 +226,7 @@ describe('Crocks helpers', () => {
       const input = {a: 'a', b: 'b', c: 'c'}
       const expected = {a: 'a', c: 'c'}
       const result = dissoc('b', input)
-      expect(result).to.eql(expected)
+      expect(result).toEqual(expected)
     })
   })
 
@@ -236,7 +235,7 @@ describe('Crocks helpers', () => {
     it('takes functions and created a Pair', () => {
       const splitValue = fanout(dbl, inc)
       const result = splitValue(5)
-      expect(result.inspect()).to.equal('Pair( 10, 6 )')
+      expect(result.inspect()).toBe('Pair( 10, 6 )')
     })
 
     it.skip('Works with Arrows', () => {
@@ -253,14 +252,14 @@ describe('Crocks helpers', () => {
       const input = [new Pair('a', 'A')]
       const expected = {a: 'A'}
       const result = fromPairs(input)
-      expect(result).to.eql(expected)
+      expect(result).toEqual(expected)
     })
 
     it('Creates an object from an array of Pairs', () => {
       const input = [new Pair('a', 'A'), new Pair('b', 'B'), new Pair('c', 'C')]
       const expected = {a: 'A', b: 'B', c: 'C'}
       const result = fromPairs(input)
-      expect(result).to.eql(expected)
+      expect(result).toEqual(expected)
     })
 
     it('Creates an object from a List of Pairs', () => {
@@ -269,7 +268,7 @@ describe('Crocks helpers', () => {
       )
       const expected = {a: 'A', b: 'B', c: 'C'}
       const result = fromPairs(input)
-      expect(result).to.eql(expected)
+      expect(result).toEqual(expected)
     })
   })
 
@@ -283,7 +282,7 @@ describe('Crocks helpers', () => {
 
     it('Identity with Applicitive Functors', () => {
       const v = Identity.of('x')
-      expect(Identity.of(identity).ap(v).valueOf()).to.eq(v.valueOf())
+      expect(Identity.of(identity).ap(v).valueOf()).toEqual(v.valueOf())
     })
 
     it('liftA2 applies a function to the values of 2 functors', () => {
@@ -317,20 +316,20 @@ describe('Crocks helpers', () => {
 
       const result3 = liftA2(add, Identity(1), Identity(2))
 
-      expect(result1.inspect()).to.equal('Identity 3')
-      expect(result1.valueOf()).to.equal(3)
+      expect(result1.inspect()).toBe('Identity 3')
+      expect(result1.valueOf()).toBe(3)
 
-      expect(result2.inspect()).to.equal('Identity 3')
-      expect(result2.valueOf()).to.equal(3)
+      expect(result2.inspect()).toBe('Identity 3')
+      expect(result2.valueOf()).toBe(3)
 
-      expect(result3.inspect()).to.equal('Identity 3')
-      expect(result3.valueOf()).to.equal(3)
+      expect(result3.inspect()).toBe('Identity 3')
+      expect(result3.valueOf()).toBe(3)
     })
 
     it('liftA3 applies a function to the values of 3 functors', () => {
       const add3 = curry((a, b, c) => a + b + c)
       const result = liftA3(add3, Identity.of(1), Identity.of(2), Identity.of(3))
-      expect(result.valueOf()).to.equal(6)
+      expect(result.valueOf()).toBe(6)
     })
 
     /**
@@ -359,8 +358,8 @@ describe('Crocks helpers', () => {
       const eitherValue = eitherResult.either(() => {}, identity)
       const maybeValue = maybeResult.option(() => {}, identity)
 
-      expect(eitherValue).to.equal(3)
-      expect(maybeValue).to.equal(3)
+      expect(eitherValue).toBe(3)
+      expect(maybeValue).toBe(3)
     })
   })
 
@@ -375,7 +374,7 @@ describe('Crocks helpers', () => {
       const expected = {a: 'A'}
       const createObject = objOf('a')
       const result = createObject('A')
-      expect(result).to.eql(expected)
+      expect(result).toEqual(expected)
     })
   })
 
@@ -400,13 +399,13 @@ describe('Crocks helpers', () => {
     it('Returns a Just for an existing property', () => {
       const input = { a: 'A', b: 'B' }
       const result = prop('a', input)
-      expect(result.inspect()).to.equal('Just "A"')
+      expect(result.inspect()).toBe('Just "A"')
     })
 
     it('Returns a Nothing for a non-existent key', () => {
       const input = { a: 'A', b: 'B' }
       const result = prop('c', input)
-      expect(result.inspect()).to.equal('Nothing')
+      expect(result.inspect()).toBe('Nothing')
     })
   })
 
@@ -415,19 +414,19 @@ describe('Crocks helpers', () => {
     it('Returns a Just for an existing property at a path', () => {
       const input = { a: { b: { c: 'C' } } }
       const result = propPath(['a', 'b', 'c'], input)
-      expect(result.inspect()).to.equal('Just "C"')
+      expect(result.inspect()).toBe('Just "C"')
     })
 
     it('Returns a Nothing for a non-existent key at a path', () => {
       const input = { a: { b: { c: 'C' } } }
       const result = propPath(['a', 'b', 'd'], input)
-      expect(result.inspect()).to.equal('Nothing')
+      expect(result.inspect()).toBe('Nothing')
     })
 
     it('works with indexes too', () => {
       const input = { a: [ { b: ['C'] } ] }
       const result = propPath(['a', 0, 'b', 0], input)
-      expect(result.inspect()).to.equal('Just "C"')
+      expect(result.inspect()).toBe('Just "C"')
     })
   })
 
@@ -456,12 +455,12 @@ describe('Crocks helpers', () => {
       const result5 = inc(undefined) // NaN
       const result6 = inc('x') // "x1"
 
-      expect(result.option(3)).to.equal(2)
-      expect(result2.option(3)).to.equal(3) // default val for Nothing
-      expect(result3.option(3)).to.equal(3) // default val for Nothing
-      expect(result4.option(3)).to.equal(3)
-      expect(result5).to.be.NaN
-      expect(result6).to.equal('x1')
+      expect(result.option(3)).toBe(2)
+      expect(result2.option(3)).toBe(3) // default val for Nothing
+      expect(result3.option(3)).toBe(3) // default val for Nothing
+      expect(result4.option(3)).toBe(3)
+      expect(result5).toBe(NaN)
+      expect(result6).toBe('x1')
     })
 
     /**
@@ -484,9 +483,9 @@ describe('Crocks helpers', () => {
       const result2 = safeAdd(null, 2)
       const result3 = safeAdd(4, undefined)
 
-      expect(result.inspect()).to.equal('Just 3')
-      expect(result2.inspect()).to.equal('Nothing')
-      expect(result3.inspect()).to.equal('Nothing')
+      expect(result.inspect()).toBe('Just 3')
+      expect(result2.inspect()).toBe('Nothing')
+      expect(result3.inspect()).toBe('Nothing')
     })
   })
 })

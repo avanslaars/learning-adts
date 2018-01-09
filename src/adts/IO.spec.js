@@ -1,5 +1,4 @@
 // @ts-check
-const expect = require('chai').expect
 
 describe('IO', () => {
   const IO = require('crocks/IO')
@@ -13,22 +12,22 @@ describe('IO', () => {
       const io = new IO(function () {
         return 10
       })
-      expect(io.inspect()).to.equal('IO Function')
+      expect(io.inspect()).toBe('IO Function')
 
       const result = io.map(n => n * 2)
-      expect(result.inspect()).to.eql('IO Function')
+      expect(result.inspect()).toEqual('IO Function')
       const out = result.run()
-      expect(out).to.equal(20)
+      expect(out).toBe(20)
     })
 
     it('Can be created with a value in of', () => {
       const io = IO.of(10)
-      expect(io.inspect()).to.equal('IO Function')
+      expect(io.inspect()).toBe('IO Function')
 
       const result = io.map(n => n * 2)
-      expect(result.inspect()).to.eql('IO Function')
+      expect(result.inspect()).toEqual('IO Function')
       const out = result.run()
-      expect(out).to.equal(20)
+      expect(out).toBe(20)
     })
   })
 })

@@ -3,8 +3,6 @@
 
 'use strict'
 
-const expect = require('chai').expect
-
 describe('Pair', () => {
   const Pair = require('crocks/Pair')
   const identity = require('crocks/combinators/identity')
@@ -14,7 +12,7 @@ describe('Pair', () => {
   describe('Pair construction', () => {
     it('is constructed with the new keyword', () => {
       const result = new Pair('first', 'second')
-      expect(result.inspect()).to.eql('Pair( "first", "second" )')
+      expect(result.inspect()).toEqual('Pair( "first", "second" )')
     })
 
     it('Can be created with the fanout function', () => {
@@ -29,14 +27,14 @@ describe('Pair', () => {
        */
       const createNumberPair = fanout(n => n * 2, identity)
       const result = createNumberPair(2)
-      expect(result.inspect()).to.eql('Pair( 4, 2 )')
+      expect(result.inspect()).toEqual('Pair( 4, 2 )')
     })
 
     describe('branch', () => {
       const branch = require('crocks/Pair/branch')
       it('Can be created with the branch function', () => {
         const result = branch(1)
-        expect(result.inspect()).to.equal('Pair( 1, 1 )')
+        expect(result.inspect()).toBe('Pair( 1, 1 )')
       })
     })
   })
@@ -45,7 +43,7 @@ describe('Pair', () => {
     it('Invokes the transformation function on the second value', () => {
       const pair = new Pair(1, 2)
       const result = pair.map(dbl)
-      expect(result.inspect()).to.eql('Pair( 1, 4 )')
+      expect(result.inspect()).toEqual('Pair( 1, 4 )')
     })
 
     it('Will nest Pairs if a mapped function returns a Pair', () => {
@@ -53,7 +51,7 @@ describe('Pair', () => {
       // const { fanout, identity } = crocks
       const createNumberPair = fanout(n => n * 2, identity)
       const result = pair.map(createNumberPair)
-      expect(result.inspect()).to.eql('Pair( 1, Pair( 4, 2 ) )')
+      expect(result.inspect()).toEqual('Pair( 1, Pair( 4, 2 ) )')
     })
 
     /**
@@ -67,7 +65,7 @@ describe('Pair', () => {
       const pair = new Pair(1, 2)
       // const { fanout, identity } = crocks
       const createNumberPair = fanout(n => n * 2, identity)
-      expect(() => pair.chain(createNumberPair)).to.throw(
+      expect(() => pair.chain(createNumberPair)).toThrow(
         'Pair.chain: Semigroups of the same type required for first values'
       )
     })
@@ -96,7 +94,7 @@ describe('Pair', () => {
        * transformation function. We're using identity in this case,
        * so there is no change to the value.
        */
-      expect(result.inspect()).to.eql('Pair( [ 1, 2, 6 ], 3 )')
+      expect(result.inspect()).toEqual('Pair( [ 1, 2, 6 ], 3 )')
     })
   })
 
@@ -112,7 +110,7 @@ describe('Pair', () => {
       const pair = new Pair(1, 2)
       // Using identity to just swap the values
       const result = pair.swap(identity, identity)
-      expect(result.inspect()).to.eql('Pair( 2, 1 )')
+      expect(result.inspect()).toEqual('Pair( 2, 1 )')
     })
 
     it('Applies transformations during the swap', () => {
@@ -124,7 +122,7 @@ describe('Pair', () => {
        * it'll end up as the first value
        */
       const result = pair.swap(x => x + 1, x => x * 3)
-      expect(result.inspect()).to.eql('Pair( 6, 2 )')
+      expect(result.inspect()).toEqual('Pair( 6, 2 )')
     })
   })
 
@@ -132,7 +130,7 @@ describe('Pair', () => {
     it('Takes two transformation functions', () => {
       const pair = new Pair(1, 2)
       const result = pair.bimap(x => x + 1, x => x * 3)
-      expect(result.inspect()).to.eql('Pair( 2, 6 )')
+      expect(result.inspect()).toEqual('Pair( 2, 6 )')
     })
   })
 
@@ -155,7 +153,7 @@ describe('Pair', () => {
        */
       const incFirst = first(inc)
       const result = incFirst(pair)
-      expect(result.inspect()).to.eql('Pair( 2, 2 )')
+      expect(result.inspect()).toEqual('Pair( 2, 2 )')
     })
 
     it('Can transform just the second value', () => {
@@ -167,7 +165,7 @@ describe('Pair', () => {
        */
       const incSecond = second(inc)
       const result = incSecond(pair)
-      expect(result.inspect()).to.eql('Pair( 1, 3 )')
+      expect(result.inspect()).toEqual('Pair( 1, 3 )')
     })
   })
 
@@ -179,13 +177,13 @@ describe('Pair', () => {
     it('Extracts the first value with fst', () => {
       const pair = new Pair(1, 2)
       const result = pair.fst()
-      expect(result).to.eql(1)
+      expect(result).toEqual(1)
     })
 
     it('Extracts the second value with snd', () => {
       const pair = new Pair(1, 2)
       const result = pair.snd()
-      expect(result).to.eql(2)
+      expect(result).toEqual(2)
     })
 
     /**
@@ -194,7 +192,7 @@ describe('Pair', () => {
     it('Extracts an array of two values with toArray', () => {
       const pair = new Pair(1, 2)
       const result = pair.toArray()
-      expect(result).to.eql([1, 2])
+      expect(result).toEqual([1, 2])
     })
   })
 
@@ -203,7 +201,7 @@ describe('Pair', () => {
       const pair = new Pair(1, 2)
       const add = (a, b) => a + b
       const result = pair.merge(add)
-      expect(result).to.eql(3)
+      expect(result).toEqual(3)
     })
   })
 
@@ -221,7 +219,7 @@ describe('Pair', () => {
        * our result.
        */
       const result = pair.extend(p => p.merge(add))
-      expect(result.inspect()).to.eql('Pair( 1, 3 )')
+      expect(result.inspect()).toEqual('Pair( 1, 3 )')
     })
   })
 
@@ -234,7 +232,7 @@ describe('Pair', () => {
     it('Requires both first and second to contain Semigroups of the same type', () => {
       const pair1 = new Pair(1, 2)
       const pair2 = new Pair(3, 4)
-      expect(() => pair1.concat(pair2)).to.throw(
+      expect(() => pair1.concat(pair2)).toThrow(
         'Pair.concat: Both Pairs must contain Semigroups of the same type'
       )
     })
@@ -243,7 +241,7 @@ describe('Pair', () => {
       const pair1 = new Pair([1, 2], [3, 4])
       const pair2 = new Pair([5, 6], [7, 8])
       const result = pair1.concat(pair2)
-      expect(result.inspect()).to.eql('Pair( [ 1, 2, 5, 6 ], [ 3, 4, 7, 8 ] )')
+      expect(result.inspect()).toEqual('Pair( [ 1, 2, 5, 6 ], [ 3, 4, 7, 8 ] )')
     })
 
     it('Only requires type matches between positions', () => {
@@ -259,7 +257,7 @@ describe('Pair', () => {
       const pair1 = new Pair(pairA, [1])
       const pair2 = new Pair(pairB, [2])
       const result = pair1.concat(pair2)
-      expect(result.inspect()).to.eql(
+      expect(result.inspect()).toEqual(
         'Pair( Pair( [ "a", "b", "c", "d" ], [ 1, 2, 3, 4 ] ), [ 1, 2 ] )'
       )
     })
@@ -273,13 +271,13 @@ describe('Pair', () => {
       const pair4 = new Pair(4, 3)
 
       const result1 = pair1.equals(pair2) // equal values
-      expect(result1).to.be.true
+      expect(result1).toBe(true)
 
       const result2 = pair1.equals(pair3) // not equal
-      expect(result2).not.to.be.true
+      expect(result2).not.toBe(true)
 
       const result3 = pair3.equals(pair4) // not equal
-      expect(result3).not.to.be.true
+      expect(result3).not.toBe(true)
     })
   })
 
@@ -297,7 +295,7 @@ describe('Pair', () => {
 
       const pairVal = new Pair([1], 2)
       const result = pairFn.ap(pairVal)
-      expect(result.inspect()).to.eql('Pair( [ 3, 1 ], 4 )')
+      expect(result.inspect()).toEqual('Pair( [ 3, 1 ], 4 )')
     })
   })
 })

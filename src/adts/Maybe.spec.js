@@ -1,8 +1,6 @@
 // @ts-check
 'use strict'
 
-const expect = require('chai').expect
-
 describe('Maybe', () => {
   const Maybe = require('crocks/maybe')
   const { dbl, inc } = require('../utils')
@@ -19,28 +17,28 @@ describe('Maybe', () => {
        */
     it('Creates a Just using the Maybe.of method', () => {
       const result = Maybe.of(3)
-      expect(result.inspect()).to.eql('Just 3')
+      expect(result.inspect()).toEqual('Just 3')
     })
 
     // Using `new Maybe` also works
     it('Creates a Just with new Maybe', () => {
       const result = new Maybe(3)
-      expect(result.inspect()).to.eql('Just 3')
+      expect(result.inspect()).toEqual('Just 3')
     })
 
     it('Allows us to create a Just directly', () => {
       const result = Maybe.Just(3)
-      expect(result.inspect()).to.eql('Just 3')
+      expect(result.inspect()).toEqual('Just 3')
     })
 
     it('Creates a Nothing with the zero method', () => {
       const result = Maybe.zero()
-      expect(result.inspect()).to.eql('Nothing')
+      expect(result.inspect()).toEqual('Nothing')
     })
 
     it('Allows us to create a Nothing directly', () => {
       const result = Maybe.Nothing()
-      expect(result.inspect()).to.eql('Nothing')
+      expect(result.inspect()).toEqual('Nothing')
     })
     /**
        * You might think null or undefined would automatically be converted to a Nothing
@@ -49,12 +47,12 @@ describe('Maybe', () => {
        */
     it('Will create a Just null', () => {
       const justNull = Maybe.of(null)
-      expect(justNull.inspect()).to.eql('Just null')
+      expect(justNull.inspect()).toEqual('Just null')
     })
 
     it('Will create a Just undefined', () => {
       const justNull = Maybe.of(undefined)
-      expect(justNull.inspect()).to.eql('Just undefined')
+      expect(justNull.inspect()).toEqual('Just undefined')
     })
   })
 
@@ -69,32 +67,32 @@ describe('Maybe', () => {
 
     it('Returns a Nothing for null', () => {
       const maybeNull = getMaybe(null)
-      expect(maybeNull.inspect()).to.eql('Nothing')
+      expect(maybeNull.inspect()).toEqual('Nothing')
     })
 
     it('Returns a Nothing for undefined', () => {
       const maybeUndefined = getMaybe(undefined)
-      expect(maybeUndefined.inspect()).to.eql('Nothing')
+      expect(maybeUndefined.inspect()).toEqual('Nothing')
     })
 
     it('Returns a Just for a non-zero number', () => {
       const maybeFour = getMaybe(4) // Just 4
-      expect(maybeFour.inspect()).to.eql('Just 4')
+      expect(maybeFour.inspect()).toEqual('Just 4')
     })
 
     it('Returns a Nothing for 0', () => {
       const maybeZero = getMaybe(0)
-      expect(maybeZero.inspect()).to.eql('Nothing')
+      expect(maybeZero.inspect()).toEqual('Nothing')
     })
 
     it('Returns a Nothing for an empty string', () => {
       const maybeEmptyString = getMaybe('')
-      expect(maybeEmptyString.inspect()).to.eql('Nothing')
+      expect(maybeEmptyString.inspect()).toEqual('Nothing')
     })
 
     it('Returns a Just for a non-empty string', () => {
       const maybeName = getMaybe('Bob')
-      expect(maybeName.inspect()).to.eql('Just "Bob"')
+      expect(maybeName.inspect()).toEqual('Just "Bob"')
     })
 
     /**
@@ -114,12 +112,12 @@ describe('Maybe', () => {
 
     it('Returns a Nothing when the predicate evaluates to false', () => {
       const theMaybe = safe(Boolean, undefined)
-      expect(theMaybe.inspect()).to.eql('Nothing')
+      expect(theMaybe.inspect()).toEqual('Nothing')
     })
 
     it('Returns a Just with the value when the predicate evaluates to true', () => {
       const theMaybe = safe(Boolean, 'Something')
-      expect(theMaybe.inspect()).to.eql('Just "Something"')
+      expect(theMaybe.inspect()).toEqual('Just "Something"')
     })
 
     /**
@@ -132,12 +130,12 @@ describe('Maybe', () => {
 
       it('Should be a Just', () => {
         const result = maybeOneToTen(5)
-        expect(result.inspect()).to.eql('Just 5')
+        expect(result.inspect()).toEqual('Just 5')
       })
 
       it('Should be a Nothing', () => {
         const result = maybeOneToTen(12)
-        expect(result.inspect()).to.eql('Nothing')
+        expect(result.inspect()).toEqual('Nothing')
       })
       /**
          * So as we can see here, it's pretty straightforward to get a Nothing
@@ -163,7 +161,7 @@ describe('Maybe', () => {
       it('Will apply a function to a value in a Maybe & return a Maybe', () => {
         const maybeNumber = Just(3)
         const incDblMapped = maybeNumber.map(inc).map(dbl)
-        expect(incDblMapped.inspect()).to.eql('Just 8')
+        expect(incDblMapped.inspect()).toEqual('Just 8')
       })
 
       /**
@@ -174,7 +172,7 @@ describe('Maybe', () => {
       it('Will skip the function & return a Nothing if map is called on a Nothing', () => {
         const maybeNumber = Nothing()
         const incDblMapped = maybeNumber.map(inc).map(dbl)
-        expect(incDblMapped.inspect()).to.eql('Nothing')
+        expect(incDblMapped.inspect()).toEqual('Nothing')
       })
     })
 
@@ -196,13 +194,13 @@ describe('Maybe', () => {
            * That isn't a typo - the return value here is `Just Just 30`.
            * We have a Maybe wrapped in another Maybe
            */
-        expect(doubledIfInRange.inspect()).to.eql('Just Just 30')
+        expect(doubledIfInRange.inspect()).toEqual('Just Just 30')
       })
 
       it('Can be flattened with chain', () => {
         const inputObject = { name: 'Bob', age: 30 }
         const doubledIfInRange = prop('age', inputObject).chain(maybeInRange)
-        expect(doubledIfInRange.inspect()).to.eql('Just 30')
+        expect(doubledIfInRange.inspect()).toEqual('Just 30')
       })
     })
 
@@ -216,13 +214,13 @@ describe('Maybe', () => {
       it('Returns the value contained in a Just', () => {
         const maybeNumber = Maybe.Just(3)
         const result = maybeNumber.option(5)
-        expect(result).to.equal(3)
+        expect(result).toBe(3)
       })
 
       it('Returns the default value for a Nothing', () => {
         const maybeNumber = Maybe.Nothing()
         const result = maybeNumber.option(5)
-        expect(result).to.equal(5)
+        expect(result).toBe(5)
       })
     })
 
@@ -243,7 +241,7 @@ describe('Maybe', () => {
           () => 5, // not invoked for a Just
           n => n * 2 // Applies one final transformation to a Just
         )
-        expect(result).to.equal(6)
+        expect(result).toBe(6)
       })
 
       it('Returns the value result of running the right fn on a Just', () => {
@@ -252,7 +250,7 @@ describe('Maybe', () => {
           () => 5, // returns a default value for a Nothing
           n => n * 2 // Doesn't get invoked for a Nothing
         )
-        expect(result).to.equal(5)
+        expect(result).toBe(5)
       })
     })
 
@@ -269,13 +267,13 @@ describe('Maybe', () => {
       it('Provides a default Just for a Nothing', () => {
         const theNothing = Maybe.Nothing()
         const result = theNothing.alt(Maybe.Just(5))
-        expect(result.inspect()).to.eql('Just 5')
+        expect(result.inspect()).toEqual('Just 5')
       })
 
       it('Returns the original when called on a Just', () => {
         const theJust = Maybe.Just(3)
         const result = theJust.alt(Maybe.Just(5))
-        expect(result.inspect()).to.eql('Just 3')
+        expect(result.inspect()).toEqual('Just 3')
       })
     })
   })
@@ -298,7 +296,7 @@ describe('Maybe', () => {
         () => 'default value', // we get the default back as a Just
         str => str.toLowerCase()
       )
-      expect(result.inspect()).to.equal('Just "default value"')
+      expect(result.inspect()).toBe('Just "default value"')
     })
 
     it('Will transform the Just', () => {
@@ -307,14 +305,14 @@ describe('Maybe', () => {
         () => 'default value',
         str => str.toLowerCase() // transform is run on our value
       )
-      expect(result.inspect()).to.equal('Just "all capped"')
+      expect(result.inspect()).toBe('Just "all capped"')
     })
 
     it('The identity function can be used to pass through the Just', () => {
       const identity = x => x
       const theNothing = Maybe.Just('ALL CAPPED')
       const result = theNothing.coalesce(() => 'default value', identity)
-      expect(result.inspect()).to.equal('Just "ALL CAPPED"')
+      expect(result.inspect()).toBe('Just "ALL CAPPED"')
     })
 
     /**
@@ -326,7 +324,7 @@ describe('Maybe', () => {
       const result = theJust
         .coalesce(() => 'default value', str => str.toLowerCase())
         .map(str => str.split(' '))
-      expect(result.inspect()).to.equal('Just [ "all", "capped" ]')
+      expect(result.inspect()).toBe('Just [ "all", "capped" ]')
     })
 
     it('We can continue processing from a Nothing', () => {
@@ -334,7 +332,7 @@ describe('Maybe', () => {
       const result = theNothing
         .coalesce(() => 'default value', str => str.toLowerCase())
         .map(str => str.split(' '))
-      expect(result.inspect()).to.equal('Just [ "default", "value" ]')
+      expect(result.inspect()).toBe('Just [ "default", "value" ]')
     })
   })
 })
