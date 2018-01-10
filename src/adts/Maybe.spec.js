@@ -335,4 +335,26 @@ describe('Maybe', () => {
       expect(result.inspect()).toBe('Just [ "default", "value" ]')
     })
   })
+
+  describe('Ramda traverse', () => {
+    const isNumber = require('crocks/predicates/isNumber')
+    const { dbl } = require('../utils')
+    const { traverse, zip } = require('ramda')
+
+    it('Creates an array of Maybes without traverse', () => {
+      const safeDbl = n => isNumber(n) ? Maybe.Just(dbl(n)) : Maybe.Nothing()
+      const data = [1, 2, 3]
+      const result = data.map(safeDbl)
+      const zipped = zip(data, result)
+      zipped.forEach(([n, m]) => {
+        expect(m.inspect()).toEqual(`Just ${n * 2}`)
+      })
+    })
+
+    it('Creates a Maybe of the transformed array', () => {
+      const safeDbl = n => isNumber(n) ? Maybe.Just(dbl(n)) : Maybe.Nothing()
+      const result = traverse(Maybe.of, safeDbl, [1, 2, 3])
+      expect(result.inspect()).toEqual('Just [ 2, 4, 6 ]')
+    })
+  })
 })
