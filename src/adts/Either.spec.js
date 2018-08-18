@@ -26,6 +26,7 @@ describe('Either', () => {
 
     // Using `new Either` also works
     it('Creates a Right with new Either', () => {
+      // const a = 1
       const result = new Either(3)
       expect(result.inspect()).toEqual('Right 3')
     })
@@ -40,9 +41,9 @@ describe('Either', () => {
       expect(result.inspect()).toEqual('Left "error"')
     })
     /**
-       * You might think null or undefined would automatically be converted to a Nothing
-       * but this is not the case. The constructor doesn't come with any opinions. That's a good thing :)
-       */
+     * You might think null or undefined would automatically be converted to a Nothing
+     * but this is not the case. The constructor doesn't come with any opinions. That's a good thing :)
+     */
     it('Will create a Right null', () => {
       const result = Either.of(null)
       expect(result.inspect()).toEqual('Right null')

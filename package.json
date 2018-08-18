@@ -12,20 +12,24 @@
   "devDependencies": {
     "husky": "^0.14.3",
     "jest": "^23.5.0",
+    "jest-runner-standard": "0.0.12",
+    "jest-silent-reporter": "^0.1.0",
     "jest-watch-typeahead": "^0.2.0",
     "standard": "^10.0.3"
   },
   "scripts": {
-    "lint": "standard",
+    "lint": "jest --projects ./jest-lint.config.js --watch",
+    "lint:once": "standard",
     "fix": "standard --fix",
     "test": "jest --watch",
     "test:once": "jest",
-    "precommit": "npm run lint && npm run test:once"
+    "precommit": "npm run lint:once && npm run test:once"
   },
   "quokka": {
     "babel": false
   },
   "jest": {
+    "displayName": "test",
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
