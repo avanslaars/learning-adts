@@ -11,7 +11,8 @@
   },
   "devDependencies": {
     "husky": "^0.14.3",
-    "jest": "^23.5.0",
+    "jest": "^23.6.0",
+    "jest-circus": "^23.6.0",
     "jest-runner-standard": "0.0.12",
     "jest-silent-reporter": "^0.1.0",
     "jest-watch-typeahead": "^0.2.0",
@@ -30,6 +31,7 @@
   },
   "jest": {
     "displayName": "test",
+    "testRunner": "jest-circus/runner",
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
